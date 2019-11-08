@@ -54,5 +54,13 @@ public class BookController {
         return "bookData";
     }
 
+    /**
+     * 图书列表页
+     */
+    @RequestMapping("/bookList")
+    public String bookList(){
+        return "books_list";
+    }
+
 
 }
