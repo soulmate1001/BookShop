@@ -39,33 +39,34 @@
 						<ul class="pagination">
 							<li><a href="javascript:void(0)" th:onclick="loadData(1,[[${category}]])">首页</a></li>
 							<!--class="disabled"-->
-						    <li class=""><a href="javascript:void(0)"  th:onclick="loadData([[${pre}]],[[${category}]])">&laquo;</a></li>
+						    <li class=""><a href="javascript:void(0)"  th:onclick="loadData([[${pre}]],[[${pageSize}]],[[${category}]])">&laquo;</a></li>
 						    <li th:each="i:${#numbers.sequence(1,pages)}" th:class="${cur == i} ? 'active':''" >
-								<a href="javascript:void(0)" th:text="${i}"  th:onclick="loadData([[${i}]],[[${category}]])">1</a>
+								<a href="javascript:void(0)" th:text="${i}"  th:onclick="loadData([[${i}]],[[${pageSize}]],[[${category}]])">1</a>
 							</li>
 						    <!--<li><a href="#">2</a></li>-->
 						    <!--<li class="active"><a href="#">3</a></li>-->
 						    <!--<li><a href="#">4</a></li>-->
 						    <!--<li><a href="#">5</a></li>-->
-						    <li><a href="javascript:void(0)"  th:onclick="loadData([[${next}]],[[${category}]])">&raquo;</a></li>
-						    <li><a href="javascript:void(0)" style="border: 1px solid #ddd;"  th:onclick="loadData([[${pages}]],[[${category}]])">尾页</a></li>
+						    <li><a href="javascript:void(0)"  th:onclick="loadData([[${next}]],[[${pageSize}]],[[${category}]])">&raquo;</a></li>
+						    <li><a href="javascript:void(0)" style="border: 1px solid #ddd;"  th:onclick="loadData([[${pages}]],[[${pageSize}]],[[${category}]])">尾页</a></li>
 						    <li><a style="border: 0px;margin-left: 0px;" th:text="${'当前页' + cur + '/'+ pages+ '总页'}">3/5</a></li>
 						    <li>
 						     	
 						     	<div id="search" class="input-group" style="positon:relative;">
 									<input id="inputPage" type="text" class="form-control" placeholder="跳转指定页" />
 									<span class="input-group-btn">  
-							            <button class="btn btn-info btn-search" th:onclick="goPage([[${category}]])">GO</button>
+							            <button class="btn btn-info btn-search" th:onclick="goPage([[${pageSize}]],[[${category}]])">GO</button>
 									</span>
 								</div>
 						   </li>
 						    <li><a style="padding-top: 0px;border: 0px;">
 						     	<label>每页显示:</label>
-						     	<select id="pageSize" class="form-control" style="width: 100px;display: inline;" th:onchange="|loadDataBySize(this)|">
-						     		<option value="4">4</option>
-						     		<option value="8">8</option>
-						     		<option value="12">12</option>
-						     		<option value="16">16</option>
+						     	<select id="pageSize" th:value="${pageSize}" class="form-control" style="width: 100px;display: inline;" th:onchange="|loadDataBySize(this)|">
+						     		<option value="2" th:selected="${pageSize==2}">2</option>
+						     		<option value="4" th:selected="${pageSize==4}">4</option>
+						     		<option value="8" th:selected="${pageSize==8}">8</option>
+						     		<option value="12" th:selected="${pageSize==12}">12</option>
+						     		<option value="16" th:selected="${pageSize==16}">16</option>
 						     	</select>
 						     	<label>条</label>
 						     </a>

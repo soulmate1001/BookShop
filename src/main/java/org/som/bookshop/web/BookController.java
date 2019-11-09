@@ -81,6 +81,7 @@ public class BookController {
         model.addAttribute("pages",iPage.getPages());
         model.addAttribute("bookList",iPage.getRecords());
         model.addAttribute("category",category);
+        model.addAttribute("pageSize",pageSize);
         return "booksListData";
     }
 

@@ -159,8 +159,9 @@
 	<script src="js/wow.js" th:src="@{/js/wow.js}"></script>
 
 	<script th:inline="javascript">
-		var contextPath = [[${#request.getContextPath()}]]
-		var category = [[${category}]]
+		var contextPath = [[${#request.getContextPath()}]];
+		var category = [[${category}]];
+		var pSize = [[${pageSize}]]
 	</script>
 	<script type="text/javascript">
 		if(!(/msie [6|7|8|9]/i.test(navigator.userAgent))) {
@@ -177,13 +178,13 @@
 			query.pageSize  = pageSize == ''? 4 : pageSize;
             return query;
         }
-		function loadData(page,category) {
-            $("#bookList").load(contextPath + "/home/getBookListData",queryData(page,'',category));
+		function loadData(page,pageSize,category) {
+            $("#bookList").load(contextPath + "/home/getBookListData",queryData(page,pageSize,category));
         }
         
-        function goPage(category) {
+        function goPage(pageSize,category) {
 		    var page = $("#inputPage").val();
-            $("#bookList").load(contextPath + "/home/getBookListData",queryData(page,'',category));
+            $("#bookList").load(contextPath + "/home/getBookListData",queryData(page,pageSize,category));
         }
         function loadDataBySize(obj) {
             $("#bookList").load(contextPath + "/home/getBookListData",queryData(1,obj.value,category));
