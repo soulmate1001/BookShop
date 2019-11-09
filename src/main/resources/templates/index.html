@@ -27,7 +27,7 @@
 					<div class="collapse navbar-collapse" id="example-navbar-collapse">
 						<ul class="nav navbar-nav pull-left">
 							<li class="active">
-								<a href="index.html" th:href="@{/home/index}">首页</a>
+								<a href="index.html" th:href="@{/book/index}">首页</a>
 							</li>
 					
 							<li>
@@ -38,15 +38,15 @@
 									</a>
 									<ul class="dropdown-menu">
 										<li>
-											<a href="books_list.html" th:href="@{/home/bookList(category=1)}" >精选图书</a>
+											<a href="books_list.html" th:href="@{/book/bookList(category=1)}" >精选图书</a>
 										</li>
 										<li class="divider"></li>
 										<li>
-											<a href="books_list.html" th:href="@{/home/bookList(category=2)}" >推荐图书</a>
+											<a href="books_list.html" th:href="@{/book/bookList(category=2)}" >推荐图书</a>
 										</li>
 										<li class="divider"></li>
 										<li>
-											<a href="books_list.html" th:href="@{/home/bookList(category=3)}" >特价图书</a>
+											<a href="books_list.html" th:href="@{/book/bookList(category=3)}" >特价图书</a>
 										</li>
 										<li class="divider"></li>
 									</ul>
@@ -303,7 +303,7 @@
 								<label class="col-sm-2 control-label">公司</label>
 								<div class="col-sm-5">
 									<input type="text" name="company"  class="form-control"  placeholder="请输入公司地址">
-									<span class="glyphicon glyphicon-home form-control-feedback"></span>
+									<span class="glyphicon glyphicon-book form-control-feedback"></span>
 								</div>
 							</div>
 
@@ -311,7 +311,7 @@
 								<!--<label class="col-sm-2 control-label">地址</label>-->
 								<!--<div class="col-sm-5">-->
 									<!--<input type="text" class="form-control"  placeholder="请输入收货">-->
-									<!--<span class="glyphicon glyphicon-home form-control-feedback"></span>-->
+									<!--<span class="glyphicon glyphicon-book form-control-feedback"></span>-->
 								<!--</div>-->
 							<!--</div>-->
 
@@ -341,9 +341,9 @@
 
 			//加载book的数据
 			$(function () {
-				$("#selected").load(contextPath + "/home/getBookData",buildQuery(1,1));
-				$("#recommend").load(contextPath + "/home/getBookData",buildQuery(1,2));
-				$("#bargain").load(contextPath + "/home/getBookData",buildQuery(1,3));
+				$("#selected").load(contextPath + "/book/getBookData",buildQuery(1,1));
+				$("#recommend").load(contextPath + "/book/getBookData",buildQuery(1,2));
+				$("#bargain").load(contextPath + "/book/getBookData",buildQuery(1,3));
             })
 			//加载其他页的数据
 			function loadData(page,category) {
@@ -355,7 +355,7 @@
 				}else{
 			        node = "bargain";
 				}
-				$("#" + node ).load(contextPath + "/home/getBookData",buildQuery(page,category));
+				$("#" + node ).load(contextPath + "/book/getBookData",buildQuery(page,category));
             }
 			//包装查询参数
 			function buildQuery(page,category){
@@ -417,7 +417,7 @@
 						    $("#login").modal("hide");
 						    //alert("登录成功!");
 							//登录成功之后跳转首页
-							window.location.href = contextPath + "/home/index";
+							window.location.href = contextPath + "/book/index";
 						}else if(data == 101){
 							$("#userTip").css("display","block");
 

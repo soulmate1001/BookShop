@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * @Description:
  */
 @Controller
-@RequestMapping("/home")
+@RequestMapping("/book")
 public class BookController {
     @Autowired
     private BookService bookService;
