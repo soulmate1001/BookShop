@@ -58,9 +58,30 @@ public class BookController {
      * 图书列表页
      */
     @RequestMapping("/bookList")
-    public String bookList(){
+    public String bookList(String category,Model model){
+        model.addAttribute("category",category);
         return "books_list";
+
     }
 
+    /**
+     * 获取图书列表数据
+     */
+    @RequestMapping("getBookListData")
+    public String getBookListData(String category,Integer page,Integer pageSize, Model model){
+        QueryWrapper<Book> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("category",category);
+        IPage<Book> iPage = bookService.page(new Page<Book>(page,pageSize),queryWrapper);
+        //记录前一页的值和后一页的值
+        model.addAttribute("pre",iPage.getCurrent()-1);
+        model.addAttribute("next",iPage.getCurrent()+1);
+        //记录当前页的值和页面的值
+        model.addAttribute("cur",iPage.getCurrent());
+        //总页数的值
+        model.addAttribute("pages",iPage.getPages());
+        model.addAttribute("bookList",iPage.getRecords());
+        model.addAttribute("category",category);
+        return "booksListData";
+    }
 
 }
