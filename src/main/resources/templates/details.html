@@ -16,47 +16,51 @@
 				<div class="container-fluid">
 					<div class="navbar-header">
 						<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#example-navbar-collapse">
-				            <span class="sr-only">切换导航</span>
-				            <span class="icon-bar"></span>
-				            <span class="icon-bar"></span>
-				            <span class="icon-bar"></span>
-        				</button>
-						<a class="navbar-brand" href="#">优客书城</a>
+							<span class="sr-only">切换导航</span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+						</button>
+						<a class="navbar-brand" href="#">SOM书城</a>
 					</div>
 					<div class="collapse navbar-collapse" id="example-navbar-collapse">
 						<ul class="nav navbar-nav pull-left">
 							<li class="active">
 								<a href="index.html" th:href="@{/book/index}">首页</a>
 							</li>
+
 							<li>
-								<li class="dropdown">
-									<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-										图书类型
-										<b class="caret"></b>
-									</a>
-									<ul class="dropdown-menu">
-										<li>
-											<a href="books_list.html">精选图书</a>
-										</li>
-										<li class="divider"></li>
-										<li>
-											<a href="books_list.html">推荐图书</a>
-										</li>
-										<li class="divider"></li>
-										<li>
-											<a href="books_list.html">特价图书</a>
-										</li>
-										<li class="divider"></li>
-									</ul>
-								</li>
+							<li class="dropdown">
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+									图书类型
+									<b class="caret"></b>
+								</a>
+								<ul class="dropdown-menu">
+									<li>
+										<a href="books_list.html" th:href="@{/book/bookList(category=1)}" >精选图书</a>
+									</li>
+									<li class="divider"></li>
+									<li>
+										<a href="books_list.html" th:href="@{/book/bookList(category=2)}" >推荐图书</a>
+									</li>
+									<li class="divider"></li>
+									<li>
+										<a href="books_list.html" th:href="@{/book/bookList(category=3)}" >特价图书</a>
+									</li>
+									<li class="divider"></li>
+								</ul>
 							</li>
-							<li>
-								<a href="#" data-toggle="modal" data-target="#myModal">登录</a>
 							</li>
-							<li>
-								<a href="index.html">安全退出</a>
+							<li th:if="${session.user == null}">
+								<a href="#" data-toggle="modal" data-target="#login">登录</a>
 							</li>
-							<li>
+							<li th:if="${session.user != null}">
+								<a href="javascript:void(0)" th:text="${'欢迎您，'+ session.user.getUsername()}">用户名</a>
+							</li>
+							<li th:if="${session.user != null}">
+								<a href="index.html" th:href="@{/user/loginOut}">安全退出</a>
+							</li>
+							<li th:if="${session.user == null}">
 								<a href="#" data-toggle="modal" data-target="#register">注册</a>
 							</li>
 							<li>
@@ -68,10 +72,10 @@
 						</ul>
 						<div class="input-group col-md-3 pull-right" style="positon:relative;padding: 7px;">
 							<input type="text" class="form-control" placeholder="请输入图书名" />
-							<span class="input-group-btn">  
+							<span class="input-group-btn">
 					            <button class="btn btn-info btn-search">
 					            	<span class="glyphicon glyphicon-search"></span>
-							</button>
+					            </button>
 							</span>
 						</div>
 					</div>
@@ -93,16 +97,17 @@
 				<!-- 轮播（Carousel）项目 -->
 				<div class="carousel-inner">
 					<div class="item active">
-						<a href="details.html"><img src="images/advert1.jpg" th:src="@{/images/advert1.jpg}" class="pull-left" alt="First slide"></a>
-					
+						<a href="details.html"><img src="images/advert1.jpg" th:src="@{/images/advert1.jpg}" class="pull-left"
+													alt="First slide"></a>
+
 					</div>
 					<div class="item">
 						<a href="details.html"><img src="images/advert2.jpg" th:src="@{/images/advert2.jpg}" class="pull-left" alt="First slide"></a>
-						
+
 					</div>
 					<div class="item">
 						<a href="details.html"><img src="images/advert3.jpg" th:src="@{/images/advert3.jpg}" class="pull-left" alt="First slide"></a>
-					
+
 					</div>
 				</div>
 
@@ -122,17 +127,17 @@
 						<a href="#">图书详情</a>
 					</li>
 					<li>
-						<a href="#">愿你的青春不负梦想</a>
+						<a href="#" th:text="${book.name}">愿你的青春不负梦想</a>
 					</li>
 				</ol>
 
 				<div class="row">
 					<div class="col-sm-12 col-md-6">
 						<div class="thumbnail">
-							<a><img src="images/yuannideqingchunbufumengxiang.jpg" style="height: 200px;" alt="通用的占位符缩略图"></a>
+							<a th:href="@{/book/detail(id=${book.id})}"><img src="images/yuannideqingchunbufumengxiang.jpg" th:src="@{'/public/' + ${book.imgUrl}}" style="height: 200px;" alt="通用的占位符缩略图"></a>
 							<div class="caption">
-								<h3>愿你的青春不负梦想</h3>
-								<p>双十一特价,包邮哟!亲<img src="images/3.gif" style="width: 24px;height: 24px;"></p>
+								<h3 th:text="${book.name}">愿你的青春不负梦想</h3>
+								<p>双十一特价,包邮哟!亲<img src="images/3.gif" th:src="@{/images/3.gif}" style="width: 24px;height: 24px;"></p>
 								<p>
 									<div style="margin-bottom: 5px;width: 100px;">
 										<input type="number" class="form-control" placeholder="购买数量" min="1" max="100" onclick="selectByCount(this)">
@@ -154,13 +159,15 @@
 					<div class="col-sm-12 col-md-6">
 						<div class="thumbnail">
 							<ul class="list-group">
-								<li class="list-group-item"><span class="text-success">图书名称:愿你的青春不负梦想</span></li>
-								<li class="list-group-item"><span class="text-info">作者:</span>俞敏洪</li>
-								<li class="list-group-item"><span class="text-info">出版日期:2017年01月</span></li>
-								<li class="list-group-item"><span class="text-info">出版社:</span>湖南文艺出版社</li>
-								<li class="list-group-item"><span class="text-info" style="text-decoration: line-through;">原价:</span><span style="text-decoration: line-through;">$36元</span></li>
-								<li class="list-group-item"><span class="text-info">现价:</span>$21.6元</li>
-								<li class="list-group-item"><span class="text-info">说明:</span> 50年心路历程×25年创业思考×80场演讲精华，与不甘平庸的你，谈谈如何度过不悔的青春，实现你心中的梦想。
+								<li class="list-group-item"><span class="text-success">图书名称:<span  th:text="${book.name}">愿你的青春不负梦想</span></span></li>
+								<li class="list-group-item"><span class="text-info">作者:</span><span th:text="${book.author}">俞敏洪</span></li>
+								<li class="list-group-item"><span class="text-info">出版日期:<span th:text="${#dates.format(book.publishDate,'yyyy年MM月')}">2017年01月</span></span></li>
+								<li class="list-group-item"><span class="text-info">出版社:</span><span th:text="${book.publisher}">湖南文艺出版社</span></li>
+								<li class="list-group-item"><span class="text-info" style="text-decoration: line-through;">原价:</span><span style="text-decoration: line-through;"  th:text="${'$' + book.oldPrice + '元'}">$36元</span></li>
+								<li class="list-group-item"><span class="text-info">现价:</span>$<span th:text="${book.newPrice}">21.6</span>元</li>
+								<li class="list-group-item">
+									<span class="text-info">说明:</span>
+									<span th:text="${book.info}">50年心路历程×25年创业思考×80场演讲精华，与不甘平庸的你，谈谈如何度过不悔的青春，实现你心中的梦想。</span>
 								</li>
 							</ul>
 						</div>
@@ -196,17 +203,16 @@
 									</p>
 									<div class="row">
 										<div class="col-sm-12 col-md-6">
-											<ul class="nav navbar-collapse" style="line-height: 3;>
-												<li class="text-info">产品名称：愿你的青春不负梦想</li>
-												<li class="text-info">是否是套装: 否</li>
-												<li class="text-info">书名:愿你的青春不负梦想</li>
+											<ul class="nav navbar-collapse" style="line-height: 3;">
+												<li class="text-info">产品名称：<span th:text="${book.name}">愿你的青春不负梦想</span></li>
+												<li class="text-info">是否是套装: <span th:text="${book.suit}">否</span></li>
+<!--											<li class="text-info">书名:愿你的青春不负梦想</li>-->
 												<li class="text-info">定价: 36.00元</li>
-												<li class="text-info">出版社名称: 湖南文艺出版社</li>
-												<li class="text-info">出版时间: 2017年01月</li>
-												<li class="text-info">作者: 俞敏洪</li>
-												<li class="text-info">作者地区: 中国</li>
-												<li class="text-info">书名: 愿你的青春不负梦想</li>
-												<li class="text-info">ISBN编号: 9787540478612</li>
+												<li class="text-info">出版社名称: <span th:text="${book.publisher}">湖南文艺出版社</span></li>
+												<li class="text-info">出版时间: <span th:text="${#dates.format(book.publishDate,'yyyy年MM月')}">2017年01月</span></li>
+												<li class="text-info">作者: <span th:text="${book.author}">俞敏洪</span></li>
+												<li class="text-info">作者地区: <span th:text="${book.authorLoc}">中国</span></li>
+												<li class="text-info">ISBN编号: <span th:text="${book.isbn}">9787540478612</span></li>
 											</ul>
 										</div>
 										<span class="visible-sm visible-xs"><hr></span>

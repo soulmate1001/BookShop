@@ -67,7 +67,7 @@ public class BookController {
     /**
      * 获取图书列表数据
      */
-    @RequestMapping("getBookListData")
+    @RequestMapping("/getBookListData")
     public String getBookListData(String category,Integer page,Integer pageSize, Model model){
         QueryWrapper<Book> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("category",category);
@@ -83,6 +83,15 @@ public class BookController {
         model.addAttribute("category",category);
         model.addAttribute("pageSize",pageSize);
         return "booksListData";
+    }
+
+    //查询书的详情数据
+    @RequestMapping("/detail")
+    public String getDetail(Integer id,Model model){
+        Book book = bookService.getById(id);
+        model.addAttribute("book",book);
+
+        return "details";
     }
 
 }

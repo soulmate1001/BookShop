@@ -50,7 +50,7 @@ public class UserController {
         session.invalidate();
 
         //重定向到首页
-        return "redirect:/home/index";
+        return "redirect:/book/index";
     }
 
 }
