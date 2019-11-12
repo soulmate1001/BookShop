@@ -4,9 +4,9 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>图书详情</title>
-		<link type="text/css" rel="stylesheet" href="dist/css/bootstrap.min.css">
-		<link rel="stylesheet" type="text/css" href="css/index.css" />
-		<link rel="stylesheet" type="text/css" href="css/animate.css" />
+		<link type="text/css" rel="stylesheet" href="dist/css/bootstrap.min.css" th:href="@{/dist/css/bootstrap.min.css}" />
+		<link rel="stylesheet" type="text/css" href="css/index.css" th:href="@{/css/index.css}" />
+		<link rel="stylesheet" type="text/css" href="css/animate.css" th:href="@{/css/animate.css}" />
 	</head>
 
 	<body>
@@ -26,7 +26,7 @@
 					<div class="collapse navbar-collapse" id="example-navbar-collapse">
 						<ul class="nav navbar-nav pull-left">
 							<li class="active">
-								<a href="index.html">首页</a>
+								<a href="index.html" th:href="@{/book/index}">首页</a>
 							</li>
 							<li>
 								<li class="dropdown">
@@ -93,15 +93,15 @@
 				<!-- 轮播（Carousel）项目 -->
 				<div class="carousel-inner">
 					<div class="item active">
-						<a href="details.html"><img src="images/advert1.jpg" class="pull-left" alt="First slide"></a>
+						<a href="details.html"><img src="images/advert1.jpg" th:src="@{/images/advert1.jpg}" class="pull-left" alt="First slide"></a>
 					
 					</div>
 					<div class="item">
-						<a href="details.html"><img src="images/advert2.jpg" class="pull-left" alt="First slide"></a>
+						<a href="details.html"><img src="images/advert2.jpg" th:src="@{/images/advert2.jpg}" class="pull-left" alt="First slide"></a>
 						
 					</div>
 					<div class="item">
-						<a href="details.html"><img src="images/advert3.jpg" class="pull-left" alt="First slide"></a>
+						<a href="details.html"><img src="images/advert3.jpg" th:src="@{/images/advert3.jpg}" class="pull-left" alt="First slide"></a>
 					
 					</div>
 				</div>
@@ -308,14 +308,14 @@
 							<div class="col-md-6" style="margin-top: 10px;">
 								<div class="row">
 									<div class="col-md-offset-2 col-md-10">
-										<a href="http://www.gem-inno.com/">苏州高博应诺信息科技有限公司&copy;所有</a>
+										<a href="http://www.soulmatelq.top/">SOM信息科技有限公司&copy;所有</a>
 									</div>
 								</div>
 								<div class="gap"></div>
 								<div class="row">
 									<div class="col-md-offset-2 col-md-10">
-										<span class="text-info">高博教育&reg; |&nbsp;</span>
-										<span class="text-info"><a href="http://www.xmgc360.com">项目工厂</a> |&nbsp;</span>
+										<span class="text-info">SOM&reg; |&nbsp;</span>
+										<span class="text-info"><a href="http://www.soulmatelq.top">SOM博客</a> |&nbsp;</span>
 										<span class="text-info">2012－2020 </span>
 									</div>
 								</div>
@@ -326,11 +326,11 @@
 			</div>
 		</div>
 
-		<script src="dist/js/jquery.min.js"></script>
-		<script src="js/wow.js"></script>
-		<script src="js/carousel.js" type="text/javascript"></script>
-		<script src="dist/js/bootstrap.min.js"></script>
-		<script src="js/details.js" type="text/javascript" charset="utf-8"></script>
+		<script src="dist/js/jquery.min.js" th:src="@{/dist/js/jquery.min.js}"></script>
+		<script src="js/carousel.js" th:src="@{/js/carousel.js}" type="text/javascript" charset="utf-8"></script>
+		<script src="dist/js/bootstrap.min.js" th:src="@{/dist/js/bootstrap.min.js}"></script>
+		<script src="js/wow.js" th:src="@{/js/wow.js}"></script>
+		<script src="js/details.js" th:src="@{/js/details.js}" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript">
 			if(!(/msie [6|7|8|9]/i.test(navigator.userAgent))) {
 				new WOW().init();

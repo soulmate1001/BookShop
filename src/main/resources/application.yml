@@ -2,7 +2,7 @@
 server:
   port: 9000
   servlet:
-    context-path: /book
+    context-path: /bookshop
 #数据库相关配置?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=CTT
 spring:
   datasource:

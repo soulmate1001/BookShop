@@ -4,11 +4,11 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>我的订单</title>
-		<link type="text/css" rel="stylesheet" href="dist/css/bootstrap.min.css">
-		<link rel="stylesheet" type="text/css" href="css/index.css" />
-		<link rel="stylesheet" type="text/css" href="css/animate.css" />
-		<link rel="stylesheet" type="text/css" href="css/bootstrap-datetimepicker.min.css"/>
-		<link rel="stylesheet" type="text/css" href="css/order_list.css"/>
+		<link type="text/css" rel="stylesheet" href="dist/css/bootstrap.min.css" th:href="@{/dist/css/bootstrap.min.css}" >
+		<link rel="stylesheet" type="text/css" href="css/index.css" th:href="@{/css/index.css}" />
+		<link rel="stylesheet" type="text/css" href="css/animate.css" th:href="@{/css/animate.css}" />
+		<link rel="stylesheet" type="text/css" href="css/bootstrap-datetimepicker.min.css" th:href="@{/css/bootstrap-datetimepicker.min.css}"/>
+		<link rel="stylesheet" type="text/css" href="css/order_list.css" th:href="@{/css/order_list.css}"/>
 	</head>
 
 	<body>
@@ -18,50 +18,54 @@
 				<div class="container-fluid">
 					<div class="navbar-header">
 						<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#example-navbar-collapse">
-				            <span class="sr-only">切换导航</span>
-				            <span class="icon-bar"></span>
-				            <span class="icon-bar"></span>
-				            <span class="icon-bar"></span>
-        				</button>
-						<a class="navbar-brand" href="#">优客书城</a>
+							<span class="sr-only">切换导航</span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+						</button>
+						<a class="navbar-brand" href="#">SOM书城</a>
 					</div>
 					<div class="collapse navbar-collapse" id="example-navbar-collapse">
 						<ul class="nav navbar-nav pull-left">
-							<li>
-								<a href="index.html">首页</a>
+							<li class="active">
+								<a href="index.html" th:href="@{/book/index}">首页</a>
 							</li>
+
 							<li>
-								<li class="dropdown">
-									<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-										图书类型
-										<b class="caret"></b>
-									</a>
-									<ul class="dropdown-menu">
-										<li>
-											<a href="books_list.html">精选图书</a>
-										</li>
-										<li class="divider"></li>
-										<li>
-											<a href="books_list.html">推荐图书</a>
-										</li>
-										<li class="divider"></li>
-										<li>
-											<a href="books_list.html">特价图书</a>
-										</li>
-										<li class="divider"></li>
-									</ul>
-								</li>
+							<li class="dropdown">
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+									图书类型
+									<b class="caret"></b>
+								</a>
+								<ul class="dropdown-menu">
+									<li>
+										<a href="books_list.html" th:href="@{/book/bookList(category=1)}" >精选图书</a>
+									</li>
+									<li class="divider"></li>
+									<li>
+										<a href="books_list.html" th:href="@{/book/bookList(category=2)}" >推荐图书</a>
+									</li>
+									<li class="divider"></li>
+									<li>
+										<a href="books_list.html" th:href="@{/book/bookList(category=3)}" >特价图书</a>
+									</li>
+									<li class="divider"></li>
+								</ul>
 							</li>
-							<li>
-								<a href="#" data-toggle="modal" data-target="#myModal">登录</a>
 							</li>
-							<li>
-								<a href="index.html">安全退出</a>
+							<li th:if="${session.user == null}">
+								<a href="#" data-toggle="modal" data-target="#login">登录</a>
 							</li>
-							<li>
+							<li th:if="${session.user != null}">
+								<a href="javascript:void(0)" th:text="${'欢迎您，'+ session.user.getUsername()}">用户名</a>
+							</li>
+							<li th:if="${session.user != null}">
+								<a href="index.html" th:href="@{/user/loginOut}">安全退出</a>
+							</li>
+							<li th:if="${session.user == null}">
 								<a href="#" data-toggle="modal" data-target="#register">注册</a>
 							</li>
-							<li class="active">
+							<li>
 								<a href="order_list.html">我的订单</a>
 							</li>
 							<li>
@@ -70,10 +74,10 @@
 						</ul>
 						<div class="input-group col-md-3 pull-right" style="positon:relative;padding: 7px;">
 							<input type="text" class="form-control" placeholder="请输入图书名" />
-							<span class="input-group-btn">  
+							<span class="input-group-btn">
 					            <button class="btn btn-info btn-search">
 					            	<span class="glyphicon glyphicon-search"></span>
-							</button>
+					            </button>
 							</span>
 						</div>
 					</div>
@@ -95,16 +99,16 @@
 				<!-- 轮播（Carousel）项目 -->
 				<div class="carousel-inner">
 					<div class="item active">
-						<a href="details.html"><img src="images/advert1.jpg" class="pull-left" alt="First slide"></a>
-					
+						<a href="details.html"><img src="images/advert1.jpg" th:src="@{/images/advert1.jpg}" class="pull-left" alt="First slide"></a>
+
 					</div>
 					<div class="item">
-						<a href="details.html"><img src="images/advert2.jpg" class="pull-left" alt="First slide"></a>
-						
+						<a href="details.html"><img src="images/advert2.jpg" th:src="@{/images/advert2.jpg}" class="pull-left" alt="First slide"></a>
+
 					</div>
 					<div class="item">
-						<a href="details.html"><img src="images/advert3.jpg" class="pull-left" alt="First slide"></a>
-					
+						<a href="details.html"><img src="images/advert3.jpg" th:src="@{/images/advert3.jpg}" class="pull-left" alt="First slide"></a>
+
 					</div>
 				</div>
 
