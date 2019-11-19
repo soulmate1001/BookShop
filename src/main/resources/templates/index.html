@@ -332,7 +332,7 @@
 		<script src="dist/js/bootstrap.min.js" th:src="@{/dist/js/bootstrap.min.js}"></script>
 		<script src="js/wow.js" th:src="@{/js/wow.js}"></script>
 		<script th:inline="javascript">
-			var contextPath = [[${#request.getContextPath()}]]
+			var contextPath = [[${#request.getContextPath()}]];
 		</script>
 		<script type="text/javascript">
 			if(!(/msie [6|7|8|9]/i.test(navigator.userAgent))) {

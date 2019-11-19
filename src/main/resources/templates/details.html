@@ -140,14 +140,14 @@
 								<p>双十一特价,包邮哟!亲<img src="images/3.gif" th:src="@{/images/3.gif}" style="width: 24px;height: 24px;"></p>
 								<p>
 									<div style="margin-bottom: 5px;width: 100px;">
-										<input type="number" class="form-control" placeholder="购买数量" min="1" max="100" onclick="selectByCount(this)">
+										<input type="number" id="bookCount" class="form-control" placeholder="购买数量" min="1" max="100" onclick="selectByCount(this)">
 									</div>
 									<div style="clear: both;">
 										<!--<input type="number" class="form-control" placeholder="请输入" min="1" max="100" onclick="selectByCount(this)">-->
 										<a href="confirm_order.html" class="btn btn-default" role="button">
 											<span class="glyphicon glyphicon-usd"></span> 立即购买
 										</a>
-										<a href="cart.html" class="btn btn-default" role="button">
+										<a href="javascript:void(0)" th:onclick="addCart([[${book.id}]])" class="btn btn-default" role="button">
 											<span class="glyphicon glyphicon-shopping-cart"></span> 加入购物车
 										</a>
 									</div>
@@ -223,11 +223,11 @@
 								<div class="tab-pane fade" id="ios">
 									<p>
 										<ul class="list-group">
-											<li class="list-group-item"><span class="text-info">小明:</span><span class="text-success ">这真的是一本好书<img src="images/emotions/1.gif "></span></li>
-											<li class="list-group-item"><span class="text-info">success:</span><span class="text-danger ">书的质量很差<img src="images/emotions/2.gif "></span></li>
-											<li class="list-group-item"><span class="text-info">叶老师:</span><span class="text-success ">很值得初学者学习<img src="images/emotions/13.gif "></span></li>
-											<li class="list-group-item"><span class="text-info">amdin:</span><span class="text-danger ">被坑大发了.<img src="images/emotions/17.gif "></span></li>
-											<li class="list-group-item"><span class="text-info">rose:</span><span class="text-danger ">卖家态度恶劣.<img src="images/emotions/11.gif "></span></li>
+											<li class="list-group-item"><span class="text-info">小明:</span><span class="text-success ">这真的是一本好书<img src="images/emotions/1.gif " th:src="@{/images/emotions/1.gif}"></span></li>
+											<li class="list-group-item"><span class="text-info">success:</span><span class="text-danger ">书的质量很差<img src="images/emotions/2.gif " th:src="@{/images/emotions/2.gif}"></span></li>
+											<li class="list-group-item"><span class="text-info">叶老师:</span><span class="text-success ">很值得初学者学习<img src="images/emotions/13.gif " th:src="@{/images/emotions/13.gif}"></span></li>
+											<li class="list-group-item"><span class="text-info">amdin:</span><span class="text-danger ">被坑大发了.<img src="images/emotions/17.gif " th:src="@{/images/emotions/17.gif}"></span></li>
+											<li class="list-group-item"><span class="text-info">rose:</span><span class="text-danger ">卖家态度恶劣.<img src="images/emotions/11.gif " th:src="@{/images/emotions/11.gif}"></span></li>
 										</ul>
 									</p>
 									<p>
@@ -267,7 +267,9 @@
 					<div class="row" id="love">
 						<div class="col-sm-12 col-md-12 wow fadeInRight animated">
 							<div class="thumbnail">
-								<a href="details.html"><img src="images/xiaodaolifencunzhijian.jpg " style="height: 200px; " alt="通用的占位符缩略图 "></a>
+								<a href="details.html" th:href="@{#}" ><img
+										src="images/xiaodaolifencunzhijian.jpg " th:src="@{/images/xiaodaolifencunzhijian.jpg}"
+										style="height: 200px; " alt="通用的占位符缩略图 "></a>
 								<div class="caption ">
 									<h3>小道理：分寸之间</h3>
 								</div>
@@ -275,7 +277,9 @@
 						</div>
 						<div class="col-sm-12 col-md-12 wow fadeInRight animated">
 							<div class="thumbnail ">
-								<a href="details.html"><img src="images/NO SECRETS.jpg " style="height: 200px; " alt="通用的占位符缩略图 "></a>
+								<a href="details.html" th:href="@{#}"><img src="images/NO SECRETS.jpg "
+															th:src="@{/images/NO SECRETS.jpg}"
+															style="height: 200px; " alt="通用的占位符缩略图 "></a>
 								<div class="caption ">
 									<h3>名创优品没有秘密</h3>
 								</div>
@@ -283,7 +287,9 @@
 						</div>
 						<div class="col-sm-12 col-md-12 wow fadeInRight animated">
 							<div class="thumbnail ">
-								<a href="details.html"><img src="images/maichanpinjiushimaiziji.jpg" style="height: 200px; " alt="通用的占位符缩略图 "></a>
+								<a href="details.html" th:href="@{#}"><img
+										src="images/maichanpinjiushimaiziji.jpg" th:src="@{/images/maichanpinjiushimaiziji.jpg}"
+										style="height: 200px; " alt="通用的占位符缩略图 "></a>
 								<div class="caption ">
 									<h3>卖产品就是卖自己</h3>
 								</div>
@@ -309,7 +315,7 @@
 					<div class="col-md-offset-2 col-md-8 ">
 						<div class="row ">
 							<div class="col-md-offset-2 col-md-2 ">
-								<img src="images/logo.png ">
+								<img src="images/logo.png " th:src="@{/images/logo.png}">
 							</div>
 							<div class="col-md-6" style="margin-top: 10px;">
 								<div class="row">
@@ -337,10 +343,43 @@
 		<script src="dist/js/bootstrap.min.js" th:src="@{/dist/js/bootstrap.min.js}"></script>
 		<script src="js/wow.js" th:src="@{/js/wow.js}"></script>
 		<script src="js/details.js" th:src="@{/js/details.js}" type="text/javascript" charset="utf-8"></script>
+		<script th:inline="javascript">
+			var contextPath = [[${#request.getContextPath()}]];
+			var user = [[${session.user}]];
+		</script>
 		<script type="text/javascript">
 			if(!(/msie [6|7|8|9]/i.test(navigator.userAgent))) {
 				new WOW().init();
 			};
+
+			//加入购物车
+			function addCart(bookId) {
+				//验证购买图书的数量
+				var bookNum = $("#bookCount").val();
+				if(bookNum == '' || bookNum == "undefine"){
+					alert("请输入需要购买图书的数量!");
+					return;
+				}
+
+				if(user == '' || user == null){
+					alert("请先登录!");
+					return;
+				}
+
+				//如果验证都通过的话就进行异步提交数据
+				$.ajax({
+					url: contextPath + "/cart/add",
+					data:{"count":bookNum,"bookId":bookId},
+					method:"post",
+					success:function (data) {
+						if(data == "success"){
+							window.location.href= contextPath + "/cart/list";
+						}
+					}
+
+				})
+			}
+
 		</script>
 	</body>
 </html>
