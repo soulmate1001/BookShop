@@ -3,14 +3,17 @@ package org.som.bookshop.web;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.additional.query.impl.QueryChainWrapper;
 import org.som.bookshop.entity.Cart;
+import org.som.bookshop.entity.CartVo;
 import org.som.bookshop.entity.User;
 import org.som.bookshop.service.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 /**
  * @author soulmate
@@ -49,11 +52,11 @@ public class CartController {
      * 查询当前用户的购物车信息
      */
     @RequestMapping("/list")
-    public String list(HttpSession session){
+    public String list(HttpSession session, Model model){
         //获取用户信息,提取用户的id
         User user = (User)session.getAttribute("user");
-
-
+        List<CartVo> cartVos = cartService.findCartByUser(user.getId());
+        model.addAttribute("cartList",cartVos);
         return "cart";
     }
 }

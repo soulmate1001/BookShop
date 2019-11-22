@@ -68,7 +68,7 @@
 								<a href="order_list.html">我的订单</a>
 							</li>
 							<li>
-								<a href="cart.html"><span class="glyphicon glyphicon-shopping-cart"> </span>我的购物车</a>
+								<a href="cart.html" th:href="@{/cart/list}"><span class="glyphicon glyphicon-shopping-cart"> </span>我的购物车</a>
 							</li>
 						</ul>
 						<div class="input-group col-md-3 pull-right" style="positon:relative;padding: 7px;">
@@ -178,8 +178,8 @@
 					</div>
 				</div>
 			</div>
+			<!--首页底部信息end-->
 		</div>
-		<!--首页底部信息end->
 		<!--图书内容部分end-->
 
 		<!-- 登录模态框（Modal） -->
@@ -331,6 +331,7 @@
 		<script src="js/carousel.js" th:src="@{/js/carousel.js}" type="text/javascript" charset="utf-8"></script>
 		<script src="dist/js/bootstrap.min.js" th:src="@{/dist/js/bootstrap.min.js}"></script>
 		<script src="js/wow.js" th:src="@{/js/wow.js}"></script>
+		<!--定义全局路径-->
 		<script th:inline="javascript">
 			var contextPath = [[${#request.getContextPath()}]];
 		</script>

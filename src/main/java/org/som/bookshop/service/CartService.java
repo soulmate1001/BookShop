@@ -2,8 +2,12 @@ package org.som.bookshop.service;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.som.bookshop.entity.Cart;
+import org.som.bookshop.entity.CartVo;
 import org.som.bookshop.mapper.CartMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * @author soulmate
@@ -12,4 +16,10 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class CartService extends ServiceImpl<CartMapper, Cart> {
+    @Autowired
+    private CartMapper cartMapper;
+
+    public List<CartVo> findCartByUser(Integer userId){
+        return cartMapper.findCartListByUserId(userId);
+    }
 }

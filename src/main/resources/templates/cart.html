@@ -68,7 +68,7 @@
 								<a href="order_list.html">我的订单</a>
 							</li>
 							<li>
-								<a href="cart.html"><span class="glyphicon glyphicon-shopping-cart"> </span>我的购物车</a>
+								<a href="cart.html" th:href="@{/cart/list}"><span class="glyphicon glyphicon-shopping-cart"> </span>我的购物车</a>
 							</li>
 						</ul>
 						<div class="input-group col-md-3 pull-right" style="positon:relative;padding: 7px;">
@@ -155,50 +155,14 @@
 							</tr>
 						</thead>
 						<tbody id="tby">
-							<tr>
+							<tr th:each="cart:${cartList}">
 								<td><input type="checkbox" name="cks"></td>
-								<td>1001</td>
-								<td><img src="images/tenxunchuan.jpg"></td>
-								<td>腾讯传</td>
-								<td>35.0元</td>
-								<td>7</td>
-								<td>100$</td>
-							</tr>
-							<tr>
-								<td><input type="checkbox" name="cks"></td>
-								<td>1002</td>
-								<td><img src="images/ouzhou.jpg"></td>
-								<td>欧洲</td>
-								<td>35.0元</td>
-								<td>5</td>
-								<td>100$</td>
-							</tr>
-							<tr>
-								<td><input type="checkbox" name="cks"></td>
-								<td>1003</td>
-								<td><img src="images/taikong.jpg"></td>
-								<td>太空</td>
-								<td>35.0元</td>
-								<td>5</td>
-								<td>100$</td>
-							</tr>
-							<tr>
-								<td><input type="checkbox" name="cks"></td>
-								<td>1004</td>
-								<td><img src="images/NO SECRETS.jpg"></td>
-								<td>NO SECRETS</td>
-								<td>35.0元</td>
-								<td>6</td>
-								<td>100$</td>
-							</tr>
-							<tr>
-								<td><input type="checkbox" name="cks"></td>
-								<td>1005</td>
-								<td><img src="images/xizang.jpg"></td>
-								<td>西藏</td>
-								<td>35.0元</td>
-								<td>5</td>
-								<td>100$</td>
+								<td th:text="${cart.bookId}">1005</td>
+								<td><img src="images/xizang.jpg" th:src="@{'/images/'+${cart.imgUrl}}"></td>
+								<td th:text="${cart.bookName}">西藏</td>
+								<td th:text="${cart.newPrice + '元'}">35.0元</td>
+								<td th:text="${cart.count}">5</td>
+								<td th:text="${cart.newPrice * cart.count}">100$</td>
 							</tr>
 						</tbody>
 						<tfoot>
@@ -209,7 +173,7 @@
 							</tr>
 							<tr style="background-color: white;">
 								<td>
-									<a href="index.html" class="btn btn-info">&lt;&lt;继续购买</a>
+									<a href="index.html" th:href="@{/book/index}" class="btn btn-info">&lt;&lt;继续购买</a>
 								</td>
 								<td><button class="btn btn-danger" data-toggle="modal" data-target="#myModal" onclick="del()">删除商品</button></td>
 								<td colspan="4"></td>
@@ -284,7 +248,7 @@
 					<div class="row" id="love">
 						<div class="col-sm-12 col-md-12 wow fadeInRight animated">
 							<div class="thumbnail">
-								<a href="details.html"><img src="images/cikehuakai.jpg " style="height: 200px; " alt="通用的占位符缩略图 "></a>
+								<a href="details.html"><img src="images/cikehuakai.jpg " th:src="@{/images/cikehuakai.jpg}" style="height: 200px; " alt="通用的占位符缩略图 "></a>
 								<div class="caption ">
 									<h3>此刻花开</h3>
 								</div>
@@ -292,7 +256,7 @@
 						</div>
 						<div class="col-sm-12 col-md-12 wow fadeInRight animated">
 							<div class="thumbnail ">
-								<a href="details.html"><img src="images/jindumanbu.jpg " style="height: 200px; " alt="通用的占位符缩略图 "></a>
+								<a href="details.html"><img src="images/jindumanbu.jpg " th:src="@{/images/jindumanbu.jpg}"  style="height: 200px; " alt="通用的占位符缩略图 "></a>
 								<div class="caption ">
 									<h3>京都漫步</h3>
 								</div>
@@ -300,7 +264,7 @@
 						</div>
 						<div class="col-sm-12 col-md-12 wow fadeInRight animated">
 							<div class="thumbnail ">
-								<a href="details.html"><img src="images/lapulasidemonv.jpg" style="height: 200px; " alt="通用的占位符缩略图 "></a>
+								<a href="details.html"><img src="images/lapulasidemonv.jpg" th:src="@{/images/lapulasidemonv.jpg}"  style="height: 200px; " alt="通用的占位符缩略图 "></a>
 								<div class="caption ">
 									<h3>拉普拉斯的魔女</h3>
 								</div>
@@ -322,25 +286,25 @@
 
 		<div class="container">
 			<!--首页底部信息 begin-->
-			<div class="container ">
-				<div class="row ">
+			<div class="container">
+				<div class="row">
 					<div class="col-md-offset-2 col-md-8">
-						<div class="row ">
+						<div class="row">
 							<div class="col-md-offset-2 col-md-2">
-								<img src="images/logo.png ">
+								<img src="images/logo.png" th:src="@{/images/logo.png}">
 							</div>
 							<div class="col-md-6" style="margin-top: 10px;">
 								<div class="row">
 									<div class="col-md-offset-2 col-md-10">
-										<a href="http://www.gem-inno.com/">苏州高博应诺信息科技有限公司&copy;所有</a>
+										<a href="http://www.soulmatelq.top/">SOM信息科技有限公司&copy;所有</a>
 									</div>
 								</div>
 								<div class="gap"></div>
 								<div class="row">
 									<div class="col-md-offset-2 col-md-10">
-										<span class="text-info">高博教育&reg; |&nbsp;</span>
-										<span class="text-info"><a href="http://www.xmgc360.com">项目工厂</a> |&nbsp;</span>
-										<span class="text-info">2012－2020 </span>
+										<span class="text-info">SOM&reg; |&nbsp;</span>
+										<span class="text-info"><a href="http://www.soulmatelq.top">SOM博客</a> |&nbsp;</span>
+										<span class="text-info">2019－2020 </span>
 									</div>
 								</div>
 							</div>
@@ -348,21 +312,27 @@
 					</div>
 				</div>
 			</div>
+			<!--首页底部信息end-->
 		</div>
 		<!--end-->
 
 		<!--引入js文件-->
-		<script src="dist/js/jquery.min.js"></script>
-		<script src="js/wow.js"></script>
-		<script src="js/carousel.js" type="text/javascript"></script>
-		<script src="dist/js/bootstrap.min.js"></script>
-		<script src="js/details.js" type="text/javascript" charset="utf-8"></script>
-		<script src="js/cart.js" type="text/javascript" charset="utf-8"></script>
+		<script src="dist/js/jquery.min.js" th:src="@{/dist/js/jquery.min.js}"></script>
+		<script src="js/wow.js" th:src="@{/js/wow.js}"></script>
+		<script src="js/carousel.js" th:src="@{/js/carousel.js}" type="text/javascript"></script>
+		<script src="dist/js/bootstrap.min.js" th:src="@{/dist/js/bootstrap.min.js}"></script>
+		<script src="js/details.js" th:src="@{/js/details.js}" type="text/javascript" charset="utf-8"></script>
+		<script src="js/cart.js" th:src="@{/js/cart.js}" type="text/javascript" charset="utf-8"></script>
+		<!--定义全局路径-->
+		<script th:inline="javascript">
+			var contextPath = [[${#request.getContextPath()}]];
+		</script>
 		<script type="text/javascript">
 			if(!(/msie [6|7|8|9]/i.test(navigator.userAgent))) {
 				new WOW().init();
 			};
 		</script>
+		<script th:src="@{/js/userLoginReg.js}"></script>
 	</body>
 
 </html>
