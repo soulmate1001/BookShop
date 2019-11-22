@@ -156,6 +156,153 @@
 			</div>
 		</div>
 		<!--end-->
+
+
+		<!-- 登录模态框（Modal） -->
+		<div class="modal fade" id="login" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+							&times;
+						</button>
+						<h4 class="modal-title" id="loginModalLabel">
+							用户登录
+						</h4>
+					</div>
+					<div class="modal-body">
+						<!--登录的form表单-->
+						<form id="loginForm" class="form-horizontal" role="form" action="">
+							<div class="form-group has-feedback">
+								<label  class="col-sm-2 control-label">用户名</label>
+								<div class="col-sm-5">
+
+									<input type="text" class="form-control" name="username" placeholder="请输入用户名">
+									<span class="glyphicon glyphicon-user form-control-feedback"></span>
+								</div>
+								<div class="col-sm-3" id="userTip" style="display: none">
+									<label class="alert-danger">用户名不存在</label>
+								</div>
+							</div>
+							<div class="form-group has-feedback">
+								<label  class="col-sm-2 control-label">密码</label>
+								<div class="col-sm-5">
+									<input type="password" class="form-control" name="password" placeholder="请输入密码">
+									<span class="glyphicon glyphicon-lock form-control-feedback"></span>
+								</div>
+								<div class="col-sm-3" id="pwdTip" style="display: none">
+									<label class="alert-danger">密码不正确</label>
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="col-sm-offset-2 col-sm-10">
+									<div class="checkbox">
+										<label>
+											<input type="checkbox">请记住我
+										</label>
+									</div>
+								</div>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+								<input type="button" class="btn btn-primary" value="登录" th:onclick="|login()|" >
+							</div>
+						</form>
+						<!--form结束-->
+					</div>
+				</div>
+				<!-- /.modal-content -->
+			</div>
+		</div>
+		<!-- 登录modal end/.modal -->
+
+		<!-- 注册模态框（Modal） -->
+		<div class="modal fade" id="register" tabindex="-1" role="dialog" aria-labelledby="regModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+							&times;
+						</button>
+						<h4 class="modal-title" id="regModalLabel">
+							用户注册
+						</h4>
+					</div>
+					<div class="modal-body">
+						<!--注册的form表单-->
+						<form id="regForm" action="" class="form-horizontal" role="form">
+							<div class="form-group has-feedback">
+								<label  class="col-sm-2 control-label">用户名</label>
+								<div class="col-sm-5">
+									<input type="text" name="username" class="form-control"  required placeholder="小写字母开头,不含中文." th:onblur="|CheckUser(this)|">
+									<span class="glyphicon glyphicon-user form-control-feedback"></span>
+								</div>
+								<div id="msg" class="col-sm-3" style="padding-top: 10px;display: none;">
+									<label id="tip" class="alert-danger">用户名不合法</label>
+								</div>
+							</div>
+							<div class="form-group has-feedback">
+								<label  class="col-sm-2 control-label">密码</label>
+								<div class="col-sm-5">
+									<input type="password" name="password"  class="form-control"  placeholder="密码长度6-8位" minlength="6" maxlength="8">
+									<span class="glyphicon glyphicon-lock form-control-feedback"></span>
+								</div>
+								<!--<div class="col-sm-3" style="padding-top: 10px;">
+									<label class="alert-danger">密码不正确</label>
+								</div>-->
+							</div>
+							<div class="form-group has-feedback">
+								<label class="col-sm-2 control-label">确认密码</label>
+								<div class="col-sm-5">
+									<input type="password" class="form-control"  minlength="6" maxlength="8" placeholder="和密码保持一致">
+									<span class="glyphicon glyphicon-lock form-control-feedback"></span>
+								</div>
+							</div>
+
+							<div class="form-group has-feedback">
+								<label class="col-sm-2 control-label">邮箱</label>
+								<div class="col-sm-5">
+									<input type="email" name="email"  class="form-control"  placeholder="合法邮箱格式">
+									<span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+								</div>
+							</div>
+
+							<div class="form-group has-feedback">
+								<label class="col-sm-2 control-label">电话</label>
+								<div class="col-sm-5">
+									<input type="tel" name="phone"  class="form-control"  placeholder="合法手机格式">
+									<span class="glyphicon glyphicon-earphone form-control-feedback"></span>
+								</div>
+							</div>
+
+							<div class="form-group has-feedback">
+								<label class="col-sm-2 control-label">公司</label>
+								<div class="col-sm-5">
+									<input type="text" name="company"  class="form-control"  placeholder="请输入公司地址">
+									<span class="glyphicon glyphicon-book form-control-feedback"></span>
+								</div>
+							</div>
+
+							<!--<div class="form-group has-feedback">-->
+							<!--<label class="col-sm-2 control-label">地址</label>-->
+							<!--<div class="col-sm-5">-->
+							<!--<input type="text" class="form-control"  placeholder="请输入收货">-->
+							<!--<span class="glyphicon glyphicon-book form-control-feedback"></span>-->
+							<!--</div>-->
+							<!--</div>-->
+
+							<div class="modal-footer">
+								<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+								<input type="button" class="btn btn-primary" value="注册" th:onclick="|register()|">
+							</div>
+						</form>
+						<!--form结束-->
+					</div>
+				</div>
+				<!-- /.modal-content -->
+			</div>
+		</div>
+		<!-- 注册模态框（Modal） end -->
 	<script src="dist/js/jquery.min.js" th:src="@{/dist/js/jquery.min.js}"></script>
 	<script src="js/carousel.js" th:src="@{/js/carousel.js}" type="text/javascript" charset="utf-8"></script>
 	<script src="dist/js/bootstrap.min.js" th:src="@{/dist/js/bootstrap.min.js}"></script>
@@ -184,7 +331,7 @@
 		function loadData(page,pageSize,category) {
             $("#bookList").load(contextPath + "/book/getBookListData",queryData(page,pageSize,category));
         }
-        
+
         function goPage(pageSize,category) {
 		    var page = $("#inputPage").val();
             $("#bookList").load(contextPath + "/book/getBookListData",queryData(page,pageSize,category));
@@ -193,70 +340,7 @@
             $("#bookList").load(contextPath + "/book/getBookListData",queryData(1,obj.value,category));
         }
 
-		//验证用户是否存在
-		function  CheckUser(obj) {
-			//alert(obj.value);
-			$.ajax({
-				url:contextPath + "/user/checkUserName",
-				data:{"username":obj.value},
-				method:"post",
-				success:function (data) {
-					$("#msg").css("display","block");
-					if(data == 102){
-						$("#msg").css("display","block");
-						$("#tip").html("用户名不合法!");
-						$("#tip").removeClass("alert-success");
-						$("#tip").addClass("alert-danger");
-					}else{
-						$("#msg").css("display","block");
-						$("#tip").html("用户名可以使用!");
-						$("#tip").removeClass("alert-danger");
-						$("#tip").addClass("alert-success");
-					}
-				}
-			})
-		}
-		//用户注册
-		function register() {
-			var datas = $("#regForm").serialize();
-			$.ajax({
-				url:contextPath + "/user/register",
-				data:datas,
-				method:"post",
-				success:function (data) {
-					if(data == 'success'){
-						alert("注册成功,请登录");
-						$("#register").modal("hide");
-					}
-				}
-			})
-		}
-
-		//用户登录
-		function login() {
-			var datas = $("#loginForm").serialize();
-			$.ajax({
-				url: contextPath + "/user/login",
-				data:datas,
-				method:"post",
-				success:function (data) {   //100表示登录成功    101表示用户不存在    102表示密码错误
-					$("#userTip").css("display","none");
-					$("#pwdTip").css("display","none");
-					if(data == 100){
-						$("#login").modal("hide");
-						//alert("登录成功!");
-						//登录成功之后跳转首页
-						window.location.href = contextPath + "/book/index";
-					}else if(data == 101){
-						$("#userTip").css("display","block");
-
-					}else{
-						$("#pwdTip").css("display","block");
-					}
-				}
-			})
-		}
-
 	</script>
+	<script th:src="@{/js/userAndBook.js}"></script>
 	</body>
 </html>

@@ -55,8 +55,12 @@ public class CartController {
     public String list(HttpSession session, Model model){
         //获取用户信息,提取用户的id
         User user = (User)session.getAttribute("user");
-        List<CartVo> cartVos = cartService.findCartByUser(user.getId());
-        model.addAttribute("cartList",cartVos);
-        return "cart";
+        if(null != user ){
+            List<CartVo> cartVos = cartService.findCartByUser(user.getId());
+            model.addAttribute("cartList",cartVos);
+            return "cart";
+        }
+        return "index";
+
     }
 }

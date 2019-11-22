@@ -1,3 +1,29 @@
+//加载book的数据
+$(function () {
+    $("#selected").load(contextPath + "/book/getBookData",buildQuery(1,1));
+    $("#recommend").load(contextPath + "/book/getBookData",buildQuery(1,2));
+    $("#bargain").load(contextPath + "/book/getBookData",buildQuery(1,3));
+})
+//加载其他页的数据
+function loadData(page,category) {
+    var node;
+    if(category == 1){
+        node = "selected";
+    }else if (category == 2){
+        node = "recommend";
+    }else{
+        node = "bargain";
+    }
+    $("#" + node ).load(contextPath + "/book/getBookData",buildQuery(page,category));
+}
+//包装查询参数
+function buildQuery(page,category){
+    var query = {};
+    query.page = typeof page == "undifine" ? 1 : page;
+    query.category = category;
+    return query;
+}
+
 //验证用户是否存在
 function  CheckUser(obj) {
     //alert(obj.value);
