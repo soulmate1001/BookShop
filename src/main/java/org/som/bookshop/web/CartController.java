@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.extension.service.additional.query.impl.QueryCha
 import org.som.bookshop.entity.Cart;
 import org.som.bookshop.entity.CartVo;
 import org.som.bookshop.entity.User;
+import org.som.bookshop.entity.UserCartVo;
 import org.som.bookshop.service.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -57,6 +58,13 @@ public class CartController {
         User user = (User)session.getAttribute("user");
         if(null != user ){
             List<CartVo> cartVos = cartService.findCartByUser(user.getId());
+
+            //将用户的信息放到session中
+            UserCartVo userCartVo = new UserCartVo();
+            userCartVo.setNum(cartVos.size());
+            userCartVo.setTotalPrice(cartService.getCartItemTotal(cartVos));
+            session.setAttribute("userCartInfo",userCartVo);
+
             model.addAttribute("cartList",cartVos);
             return "cart";
         }

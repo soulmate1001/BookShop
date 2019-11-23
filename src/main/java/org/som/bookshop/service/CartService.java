@@ -22,4 +22,15 @@ public class CartService extends ServiceImpl<CartMapper, Cart> {
     public List<CartVo> findCartByUser(Integer userId){
         return cartMapper.findCartListByUserId(userId);
     }
+
+    /**
+     * 购物车的
+     */
+    public double getCartItemTotal(List<CartVo> list){
+        double sum = 0.0;
+        for (CartVo cart:list) {
+            sum += cart.getCount()*cart.getNewPrice();
+        }
+        return sum;
+    }
 }
