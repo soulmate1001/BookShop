@@ -22,8 +22,20 @@ public class CartService extends ServiceImpl<CartMapper, Cart> {
     @Autowired
     private CartMapper cartMapper;
 
+    /**
+     * 根据用户查询
+     * @param userId
+     * @return
+     */
     public List<CartVo> findCartByUser(Integer userId){
         return cartMapper.findCartListByUserId(userId);
+    }
+
+    /**
+     *根据购物车Id查询对应的记录
+     */
+    public List<CartVo> findCartByIds(String ids){
+        return cartMapper.findCartListByIds(Arrays.asList(ids));
     }
 
     /**

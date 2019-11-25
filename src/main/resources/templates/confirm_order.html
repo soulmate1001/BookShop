@@ -245,117 +245,46 @@
 				<div class="table-responsive" id="imgDiv">
 					<table class="table table-hover table-striped" style="vertical-align:middle;">
 						<thead>
-							<tr class="text-success success">
-								<th id="sequence">序号</th>
-								<th>图片</th>
-								<th>书名</th>
-								<th>单价</th>
-								<th>数量</th>
-								<th>合计</th>
-							</tr>
+						<tr class="text-success success">
+							<th><input type="checkbox" id="selectAll" onclick="selectAll(this)"></th>
+							<th id="sequence">序号</th>
+							<th>图片</th>
+							<th>书名</th>
+							<th>单价</th>
+							<th>数量</th>
+							<th>合计</th>
+						</tr>
 						</thead>
 						<tbody id="tby">
-							<tr>
-								<td>1001</td>
-								<td><img src="images/yuannideqingchunbufumengxiang.jpg"></td>
-								<td>愿你的青春不负梦想</td>
-								<td>35.0元</td>
-								<td>7</td>
-								<td>100$</td>
-							</tr>
-							<tr>
-								<td>1002</td>
-								<td><img src="images/xiaoshouxinlizhan.jpg"></td>
-								<td>销售心理战</td>
-								<td>35.0元</td>
-								<td>5</td>
-								<td>100$</td>
-							</tr>
-							<tr>
-								<td>1003</td>
-								<td><img src="images/woyushijiezhichayigeni.jpg"></td>
-								<td>我与世界只差一个人</td>
-								<td>35.0元</td>
-								<td>5</td>
-								<td>100$</td>
-							</tr>
-							<tr>
-								<td>1004</td>
-								<td><img src="images/yunyinbiji.jpg"></td>
-								<td>运营笔记</td>
-								<td>35.0元</td>
-								<td>6</td>
-								<td>100$</td>
-							</tr>
-							<tr>
-								<td>1005</td>
-								<td><img src="images/xiaodaolifencunzhijian.jpg"></td>
-								<td>小道理：分寸之间</td>
-								<td>35.0元</td>
-								<td>5</td>
-								<td>100$</td>
-							</tr>
+						<tr th:each="cart,item:${list}">
+							<td th:text="${cart.bookId}">1005</td>
+							<td><img src="images/xizang.jpg" th:src="@{'/images/'+${cart.imgUrl}}"></td>
+							<td th:text="${cart.bookName}">西藏</td>
+							<td th:text="${cart.newPrice + '元'}">35.0元</td>
+							<td th:text="${cart.count}">10</td>
+							<td th:text="${cart.newPrice * cart.count}" th:id="${'cartPrice'+item.index}">100$</td>
+						</tr>
 						</tbody>
 						<tfoot>
 							<tr>
 								<td colspan="4"></td>
 								<td class="text-success">总价:</td>
-								<td class="text-success">345$:</td>
+								<td class="text-success"  th:text="${session.userCartInfo.totalPrice +'元' }">345元</td>
 							</tr>
 							<tr style="background-color: white;">
 								<td>
-									<a href="index.html" class="btn btn-info">&lt;&lt;继续购买</a>
+									<a href="index.html" th:href="@{/cart/list}" class="btn btn-info">&lt;&lt;继续购买</a>
 								</td>
 								<td colspan="4"></td>
 								<td>
-									<a href="order_list.html" class="btn btn-warning">提交订单</a>
+									<a href="javascript:void(0)" th:onclick="commitOrder()" class="btn btn-warning">提交订单</a>
 								</td>
 							</tr>
 						</tfoot>
 					</table>
 				</div>
-				<!--购物车 end-->
+				<!--我的提交订单 end-->
 
-				<!--删除提示模态框 begin-->
-				<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-					<!--如果没有选中任何一个商品的时候,出现-->
-					<div id="first_del" style="display: none;">
-						<div class="modal-dialog">
-							<div class="modal-content">
-								<div class="modal-header">
-									<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-									<h4 class="modal-title text-warning" id="myModalLabel">抱歉!请您先选择商品!</h4>
-								</div>
-								<div class="modal-body">请选进行勾选!再执行删除删除!</div>
-								<div class="modal-footer">
-									<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-								</div>
-							</div>
-							<!-- /.modal-content -->
-						</div>
-					</div>
-					<!--first_del  end-->
-
-					<!--如果没有选中了一个商品的时候,出现-->
-					<div id="two_del" style="display: none;">
-						<div class="modal-dialog">
-							<div class="modal-content">
-								<div class="modal-header">
-									<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-									<h4 class="modal-title text-warning" id="myModalLabel">删除商品,慎重操作!</h4>
-								</div>
-								<div class="modal-body">此操作一旦进行,数据将不可恢复!</div>
-								<div class="modal-footer">
-									<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-									<button type="button" class="btn btn-danger" onclick="delRows(this)">确定删除</button>
-								</div>
-							</div>
-							<!-- /.modal-content -->
-						</div>
-					</div>
-					<!--two_del  end-->
-				</div>
-				<!--删除提示模态框 end-->
 			</div>
 
 			<!--右边-->
@@ -365,10 +294,10 @@
 						<a href="#" class="text-success"><span class="glyphicon glyphicon-shopping-cart "></span>我的购物车</a>
 					</li>
 					<li>
-						<a href="# ">3个商品</a>
+						<a href="#" th:text="${session.userCartInfo.getNum() + '个商品'}">3个商品</a>
 					</li>
 					<li>
-						<a href="# ">总价100元</a>
+						<a href="#"  th:text="${'总价' + session.userCartInfo.getTotalPrice() + '元'}">总价100元</a>
 					</li>
 				</ol>
 
@@ -378,7 +307,7 @@
 					<div class="row" id="love">
 						<div class="wow fadeInRight animated">
 							<div class="thumbnail">
-								<a href="details.html"><img src="images/dongjian.jpg " style="height: 200px; " alt="通用的占位符缩略图 ">
+								<a href="details.html"><img src="images/dongjian.jpg " th:src="@{/images/dongjian.jpg}" style="height: 200px; " alt="通用的占位符缩略图 "></a>
 								<div class="caption ">
 									<h3>洞见</h3>
 								</div>
@@ -386,7 +315,7 @@
 						</div>
 						<div class="wow fadeInRight animated">
 							<div class="thumbnail ">
-								<a href="details.html"><img src="images/tenxunchuan.jpg" style="height: 200px; " alt="通用的占位符缩略图 "></a>
+								<a href="details.html"><img src="images/tenxunchuan.jpg" th:src="@{/images/tenxunchuan.jpg}" style="height: 200px; " alt="通用的占位符缩略图 "></a>
 								<div class="caption ">
 									<h3>腾讯传</h3>
 								</div>
@@ -394,7 +323,7 @@
 						</div>
 						<div class="wow fadeInRight animated">
 							<div class="thumbnail ">
-								<a href="details.html"><img src="images/taikong.jpg" style="height: 200px; " alt="通用的占位符缩略图 "></a>
+								<a href="details.html"><img src="images/taikong.jpg" th:src="@{/images/taikong.jpg}" style="height: 200px; " alt="通用的占位符缩略图 "></a>
 								<div class="caption ">
 									<h3>太空</h3>
 								</div>
@@ -416,25 +345,25 @@
 
 		<div class="container">
 			<!--首页底部信息 begin-->
-			<div class="container ">
-				<div class="row ">
+			<div class="container">
+				<div class="row">
 					<div class="col-md-offset-2 col-md-8">
-						<div class="row ">
+						<div class="row">
 							<div class="col-md-offset-2 col-md-2">
-								<img src="images/logo.png ">
+								<img src="images/logo.png" th:src="@{/images/logo.png}">
 							</div>
 							<div class="col-md-6" style="margin-top: 10px;">
 								<div class="row">
 									<div class="col-md-offset-2 col-md-10">
-										<a href="http://www.gem-inno.com/">苏州高博应诺信息科技有限公司&copy;所有</a>
+										<a href="http://www.soulmatelq.top/">SOM信息科技有限公司&copy;所有</a>
 									</div>
 								</div>
 								<div class="gap"></div>
 								<div class="row">
 									<div class="col-md-offset-2 col-md-10">
-										<span class="text-info">高博教育&reg; |&nbsp;</span>
-										<span class="text-info"><a href="http://www.xmgc360.com">项目工厂</a> |&nbsp;</span>
-										<span class="text-info">2012－2020 </span>
+										<span class="text-info">SOM&reg; |&nbsp;</span>
+										<span class="text-info"><a href="http://www.soulmatelq.top">SOM博客</a> |&nbsp;</span>
+										<span class="text-info">2019－2020 </span>
 									</div>
 								</div>
 							</div>
@@ -442,22 +371,178 @@
 					</div>
 				</div>
 			</div>
+			<!--首页底部信息end-->
 		</div>
 		<!--end-->
-		
-		<script src="dist/js/jquery.min.js"></script>
-		<script src="js/wow.js"></script>
-		<script src="js/carousel.js" type="text/javascript"></script>
-		<script src="dist/js/bootstrap.min.js"></script>
-		<script src="dist/js/distpicker.data.min.js"></script>
-		<script src="dist/js/distpicker.min.js"></script>
-		<script src="js/details.js" type="text/javascript" charset="utf-8"></script>
-		<script src="js/cart.js" type="text/javascript" charset="utf-8"></script>
-		<script src="js/confirm_order.js"></script>
+
+		<!-- 登录模态框（Modal） -->
+		<div class="modal fade" id="login" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+							&times;
+						</button>
+						<h4 class="modal-title" id="loginModalLabel">
+							用户登录
+						</h4>
+					</div>
+					<div class="modal-body">
+						<!--登录的form表单-->
+						<form id="loginForm" class="form-horizontal" role="form" action="">
+							<div class="form-group has-feedback">
+								<label  class="col-sm-2 control-label">用户名</label>
+								<div class="col-sm-5">
+
+									<input type="text" class="form-control" name="username" placeholder="请输入用户名">
+									<span class="glyphicon glyphicon-user form-control-feedback"></span>
+								</div>
+								<div class="col-sm-3" id="userTip" style="display: none">
+									<label class="alert-danger">用户名不存在</label>
+								</div>
+							</div>
+							<div class="form-group has-feedback">
+								<label  class="col-sm-2 control-label">密码</label>
+								<div class="col-sm-5">
+									<input type="password" class="form-control" name="password" placeholder="请输入密码">
+									<span class="glyphicon glyphicon-lock form-control-feedback"></span>
+								</div>
+								<div class="col-sm-3" id="pwdTip" style="display: none">
+									<label class="alert-danger">密码不正确</label>
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="col-sm-offset-2 col-sm-10">
+									<div class="checkbox">
+										<label>
+											<input type="checkbox">请记住我
+										</label>
+									</div>
+								</div>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+								<input type="button" class="btn btn-primary" value="登录" th:onclick="|login()|" >
+							</div>
+						</form>
+						<!--form结束-->
+					</div>
+				</div>
+				<!-- /.modal-content -->
+			</div>
+		</div>
+		<!-- 登录modal end/.modal -->
+
+		<!-- 注册模态框（Modal） -->
+		<div class="modal fade" id="register" tabindex="-1" role="dialog" aria-labelledby="regModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+							&times;
+						</button>
+						<h4 class="modal-title" id="regModalLabel">
+							用户注册
+						</h4>
+					</div>
+					<div class="modal-body">
+						<!--注册的form表单-->
+						<form id="regForm" action="" class="form-horizontal" role="form">
+							<div class="form-group has-feedback">
+								<label  class="col-sm-2 control-label">用户名</label>
+								<div class="col-sm-5">
+									<input type="text" name="username" class="form-control"  required placeholder="小写字母开头,不含中文." th:onblur="|CheckUser(this)|">
+									<span class="glyphicon glyphicon-user form-control-feedback"></span>
+								</div>
+								<div id="msg" class="col-sm-3" style="padding-top: 10px;display: none;">
+									<label id="tip" class="alert-danger">用户名不合法</label>
+								</div>
+							</div>
+							<div class="form-group has-feedback">
+								<label  class="col-sm-2 control-label">密码</label>
+								<div class="col-sm-5">
+									<input type="password" name="password"  class="form-control"  placeholder="密码长度6-8位" minlength="6" maxlength="8">
+									<span class="glyphicon glyphicon-lock form-control-feedback"></span>
+								</div>
+								<!--<div class="col-sm-3" style="padding-top: 10px;">
+									<label class="alert-danger">密码不正确</label>
+								</div>-->
+							</div>
+							<div class="form-group has-feedback">
+								<label class="col-sm-2 control-label">确认密码</label>
+								<div class="col-sm-5">
+									<input type="password" class="form-control"  minlength="6" maxlength="8" placeholder="和密码保持一致">
+									<span class="glyphicon glyphicon-lock form-control-feedback"></span>
+								</div>
+							</div>
+
+							<div class="form-group has-feedback">
+								<label class="col-sm-2 control-label">邮箱</label>
+								<div class="col-sm-5">
+									<input type="email" name="email"  class="form-control"  placeholder="合法邮箱格式">
+									<span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+								</div>
+							</div>
+
+							<div class="form-group has-feedback">
+								<label class="col-sm-2 control-label">电话</label>
+								<div class="col-sm-5">
+									<input type="tel" name="phone"  class="form-control"  placeholder="合法手机格式">
+									<span class="glyphicon glyphicon-earphone form-control-feedback"></span>
+								</div>
+							</div>
+
+							<div class="form-group has-feedback">
+								<label class="col-sm-2 control-label">公司</label>
+								<div class="col-sm-5">
+									<input type="text" name="company"  class="form-control"  placeholder="请输入公司地址">
+									<span class="glyphicon glyphicon-book form-control-feedback"></span>
+								</div>
+							</div>
+
+							<!--<div class="form-group has-feedback">-->
+							<!--<label class="col-sm-2 control-label">地址</label>-->
+							<!--<div class="col-sm-5">-->
+							<!--<input type="text" class="form-control"  placeholder="请输入收货">-->
+							<!--<span class="glyphicon glyphicon-book form-control-feedback"></span>-->
+							<!--</div>-->
+							<!--</div>-->
+
+							<div class="modal-footer">
+								<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+								<input type="button" class="btn btn-primary" value="注册" th:onclick="|register()|">
+							</div>
+						</form>
+						<!--form结束-->
+					</div>
+				</div>
+				<!-- /.modal-content -->
+			</div>
+		</div>
+		<!-- 注册模态框（Modal） end -->
+		<script src="dist/js/jquery.min.js" th:src="@{/dist/js/jquery.min.js}"></script>
+		<script src="js/wow.js" th:src="@{/js/wow.js}"></script>
+		<script src="js/carousel.js" th:src="@{/js/carousel.js}" type="text/javascript"></script>
+		<script src="dist/js/bootstrap.min.js" th:src="@{/dist/js/bootstrap.min.js}" ></script>
+		<script src="dist/js/distpicker.data.min.js" th:src="@{/dist/js/distpicker.data.min.js}" ></script>
+		<script src="dist/js/distpicker.min.js" th:src="@{/dist/js/distpicker.min.js}"></script>
+		<script src="js/details.js" th:src="@{/js/details.js}" type="text/javascript" charset="utf-8"></script>
+		<script src="js/cart.js" th:src="@{/js/cart.js}" type="text/javascript" charset="utf-8"></script>
+		<script src="js/confirm_order.js" th:src="@{/js/confirm_order.js}"></script>
 		<script type="text/javascript">
 			if(!(/msie [6|7|8|9]/i.test(navigator.userAgent))) {
 				new WOW().init();
 			};
 		</script>
+		<<script th:inline="javascript">
+			var contextPath = [[${#request.getContextPath()}]];
+		</script>
+		<script th:src="@{/js/userLoginReg.js}"></script>
+		<script type="text/javascript">
+			function commitOrder() {
+				window.location.href = contextPath + "/order/commitOrder";
+			}
+		</script>
+	
 	</body>
 </html>

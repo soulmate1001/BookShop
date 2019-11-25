@@ -482,6 +482,8 @@
 		<script th:inline="javascript">
 			var contextPath = [[${#request.getContextPath()}]];
 		</script>
+		<!--用户登录注册-->
+		<script th:src="@{/js/userLoginReg.js}"></script>
 		<script type="text/javascript">
 			if(!(/msie [6|7|8|9]/i.test(navigator.userAgent))) {
 				new WOW().init();
@@ -532,9 +534,8 @@
 				var count = 0;
 				//获取所有的checkbox
 				var cks = document.getElementsByName("cks");
-				//
-				var third = document.getElementById("third_del");
-				third.style.display = "none";
+				//存储购物车记录的id
+				var ids = '';
 
 				//遍历
 				for(var i = 0; i < cks.length; i++) {
@@ -550,7 +551,7 @@
 				}
 			}
 		</script>
-		<script th:src="@{/js/userLoginReg.js}"></script>
+
 	</body>
 
 </html>
