@@ -10,7 +10,8 @@
 		<link rel="stylesheet" type="text/css" href="css/cart.css" th:href="@{/css/cart.css}" />
 	</head>
 
-	<body onload="changeNum()">
+<!--	onload="changeNum()"-->
+	<body>
 		<!--导航部分  begin-->
 		<div class="container" style="margin-top: 5px;">
 			<nav class="navbar navbar-default well-sm" style="padding-left: 0px;" role="navigation">
@@ -155,21 +156,29 @@
 							</tr>
 						</thead>
 						<tbody id="tby">
-							<tr th:each="cart:${cartList}">
-								<td><input type="checkbox" name="cks"></td>
+							<tr th:each="cart,item:${cartList}">
+								<td><input type="checkbox" name="cks" th:value="${cart.id}"></td>
 								<td th:text="${cart.bookId}">1005</td>
 								<td><img src="images/xizang.jpg" th:src="@{'/images/'+${cart.imgUrl}}"></td>
 								<td th:text="${cart.bookName}">西藏</td>
 								<td th:text="${cart.newPrice + '元'}">35.0元</td>
-								<td th:text="${cart.count}">5</td>
-								<td th:text="${cart.newPrice * cart.count}">100$</td>
+								<td>
+									<div class='input-group' style='width: 105px;'>
+									<span class='input-group-btn'>
+									<button class='btn btn-default' type='button' th:onclick="minus([[${cart.id}]],[[${cart.newPrice}]],[[${item.index}]])">-</button>
+									</span><input type='text' class='form-control' th:id="${'cartCount'+item.index}" th:value="${cart.count}"><span class='input-group-btn'>
+									<button class='btn btn-default' type='button' th:onclick="plus([[${cart.id}]],[[${cart.newPrice}]],[[${item.index}]])">+</button>
+									</span>
+									</div>
+								</td>
+								<td th:text="${cart.newPrice * cart.count}" th:id="${'cartPrice'+item.index}">100$</td>
 							</tr>
 						</tbody>
 						<tfoot>
 							<tr>
 								<td colspan="5"></td>
-								<td class="text-success">总价:</td>
-								<td class="text-success" th:text="${session.userCartInfo.totalPrice +'$' }">345$</td>
+								<td class="text-success">全部商品总价:</td>
+								<td class="text-success" th:text="${session.userCartInfo.totalPrice +'元' }" id="cart_Total">345元</td>
 							</tr>
 							<tr style="background-color: white;">
 								<td>
@@ -178,7 +187,7 @@
 								<td><button class="btn btn-danger" data-toggle="modal" data-target="#myModal" onclick="del()">删除商品</button></td>
 								<td colspan="4"></td>
 								<td>
-									<a href="confirm_order.html" class="btn btn-warning">结算商品</a>
+									<a href="javascript:void(0)" th:onclick="confirmOrder()" class="btn btn-warning">结算商品</a>
 								</td>
 							</tr>
 						</tfoot>
@@ -194,7 +203,7 @@
 							<div class="modal-content">
 								<div class="modal-header">
 									<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-									<h4 class="modal-title text-warning" id="myModalLabel">抱歉!请您先选择商品!</h4>
+									<h4 class="modal-title text-warning" id="firstModalLabel">抱歉!请您先选择商品!</h4>
 								</div>
 								<div class="modal-body">请选进行勾选!再执行删除删除!</div>
 								<div class="modal-footer">
@@ -212,7 +221,7 @@
 							<div class="modal-content">
 								<div class="modal-header">
 									<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-									<h4 class="modal-title text-warning" id="myModalLabel">删除商品,慎重操作!</h4>
+									<h4 class="modal-title text-warning" id="twoModalLabel">删除商品,慎重操作!</h4>
 								</div>
 								<div class="modal-body">此操作一旦进行,数据将不可恢复!</div>
 								<div class="modal-footer">
@@ -238,7 +247,7 @@
 						<a href="# " th:text="${session.userCartInfo.num + '个商品'}">3个商品</a>
 					</li>
 					<li>
-						<a href="# " th:text="${'总价' + session.userCartInfo.totalPrice +'元' }">总价100元</a>
+						<a href="# " th:text="${'全部商品总价' + session.userCartInfo.totalPrice +'元' }" id="cartTotal">总价100元</a>
 					</li>
 				</ol>
 
@@ -477,6 +486,69 @@
 			if(!(/msie [6|7|8|9]/i.test(navigator.userAgent))) {
 				new WOW().init();
 			};
+
+			//修改购物车商品的数量
+			//删减操作
+			function minus(cartId,price,index) {
+				//购物车数量减一
+				//alert($("#cartCount"+index).val());
+				var count = parseInt($("#cartCount"+index).val());
+				var _price = parseFloat(price);
+				if(1 != count){
+					$("#cartCount"+index).val(count - 1);
+					$("#cartPrice"+index).html((count - 1) * _price);
+					updateCart(cartId,count - 1);
+				}
+			}
+			//增加操作
+			function plus(cartId,price,index) {
+				//购物车数量加一
+				//alert($("#cartCount"+index).val());
+				var count = parseInt($("#cartCount"+index).val());
+				var _price = parseFloat(price);
+				$("#cartCount"+index).val(count + 1);
+				$("#cartPrice"+index).html((count + 1) * _price);
+				updateCart(cartId,count + 1);
+			}
+
+			//修改后台的购物车数量的数据
+			function updateCart(cartId,count) {
+				$.ajax({
+					url: contextPath + "/cart/update",
+					data:{"id":cartId,"count":count},
+					method:"post",
+					success:function(data){
+						// alert(data);
+						$("#cartTotal").html('全部商品总价'+ data + '元');
+						$("#cart_Total").html(data + '元');
+
+					}
+				})
+			}
+
+			//提交订单
+			function confirmOrder() {
+				//判断是否选择了商品
+				var count = 0;
+				//获取所有的checkbox
+				var cks = document.getElementsByName("cks");
+				//
+				var third = document.getElementById("third_del");
+				third.style.display = "none";
+
+				//遍历
+				for(var i = 0; i < cks.length; i++) {
+					if(cks[i].checked) {
+						count++;
+						ids += cks[i].value + ",";
+					}
+				}
+				if(count == 0) {
+					alert("请选择图书!");
+				}else{
+					window.location.href = contextPath + '/order/confirm?ids=' + ids ;
+				}
+			}
 		</script>
 		<script th:src="@{/js/userLoginReg.js}"></script>
 	</body>

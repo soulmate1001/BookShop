@@ -60,9 +60,7 @@ public class CartController {
             List<CartVo> cartVos = cartService.findCartByUser(user.getId());
 
             //将用户的信息放到session中
-            UserCartVo userCartVo = new UserCartVo();
-            userCartVo.setNum(cartVos.size());
-            userCartVo.setTotalPrice(cartService.getCartItemTotal(cartVos));
+            UserCartVo userCartVo = cartService.wrapperCart(cartVos);
             session.setAttribute("userCartInfo",userCartVo);
 
             model.addAttribute("cartList",cartVos);
@@ -71,4 +69,37 @@ public class CartController {
         return "index";
 
     }
+
+    /**
+     * 更新购物车的商品数量信息
+     */
+    @ResponseBody
+    @RequestMapping("/update")
+    public String update(HttpSession session,Cart cart){
+        cartService.updateById(cart);
+        User user = (User)session.getAttribute("user");
+        List<CartVo> cartVos = cartService.findCartByUser(user.getId());
+
+        //将用户的信息放到session中
+        UserCartVo userCartVo = cartService.wrapperCart(cartVos);
+        session.setAttribute("userCartInfo",userCartVo);
+
+        double price = cartService.getCartItemTotal(cartVos);
+        return String.valueOf(price);
+    }
+
+
+    /**
+     * 删除购物车
+     */
+    @ResponseBody
+    @RequestMapping("/delete")
+    public String delete(String ids){
+        return cartService.batchDelete(ids);
+
+    }
+
+
+
+
 }
