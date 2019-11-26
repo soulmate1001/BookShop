@@ -136,13 +136,17 @@
 				<!--送货地址  begin-->
 				<div style="margin-bottom: 5px;" id="addrDiv">
 					<ul class="list-group" id="address">
-						<li class="list-group-item"><input type="radio" name="addr">&nbsp;江苏省苏州市金阊区烽火路81号 天创大厦4层</li>
-						<li class="list-group-item"><input type="radio" name="addr">&nbsp;江苏省苏州市金阊区烽火路82号 天创大厦1层</li>
-						<li class="list-group-item"><input type="radio" name="addr" checked>&nbsp;江苏省苏州市金阊区烽火路83号 天创大厦2层 &nbsp;<span class="text-success">默认地址</span></li>
-						<li class="list-group-item"><input type="radio" name="addr">&nbsp;江苏省苏州市金阊区烽火路84号 天创大厦3层</li>
-						<li class="list-group-item hidden"><input type="radio" name="addr">&nbsp;江苏省苏州市金阊区烽火路85号 天创大厦4层</li>
-						<li class="list-group-item hidden"><input type="radio" name="addr">&nbsp;江苏省苏州市金阊区烽火路88号 天创大厦3层</li>
-						<li class="list-group-item hidden"><input type="radio" name="addr">&nbsp;江苏省苏州市金阊区烽火路89号 天创大厦4层</li>
+						<li class="list-group-item" th:if="${not #lists.isEmpty(addressList)}" th:each="address:${addressList}">
+							<input type="radio" name="addr" th:value="${address.id}" th:text="${address.province} + ${address.city} + ${address.area} + ${address.detailAddress}" />
+							江苏省苏州市金阊区烽火路81号 天创大厦4层
+						</li>
+						<li class="list-group-item" th:if="${#lists.isEmpty(addressList)}" th:text="${'暂无地址信息!'}"><input type="radio" name="addr">&nbsp;江苏省苏州市金阊区烽火路82号 天创大厦1层</li>
+<!--						<li class="list-group-item"><input type="radio" name="addr">&nbsp;江苏省苏州市金阊区烽火路82号 天创大厦1层</li>-->
+<!--						<li class="list-group-item"><input type="radio" name="addr" checked>&nbsp;江苏省苏州市金阊区烽火路83号 天创大厦2层 &nbsp;<span class="text-success">默认地址</span></li>-->
+<!--						<li class="list-group-item"><input type="radio" name="addr">&nbsp;江苏省苏州市金阊区烽火路84号 天创大厦3层</li>-->
+<!--						<li class="list-group-item hidden"><input type="radio" name="addr">&nbsp;江苏省苏州市金阊区烽火路85号 天创大厦4层</li>-->
+<!--						<li class="list-group-item hidden"><input type="radio" name="addr">&nbsp;江苏省苏州市金阊区烽火路88号 天创大厦3层</li>-->
+<!--						<li class="list-group-item hidden"><input type="radio" name="addr">&nbsp;江苏省苏州市金阊区烽火路89号 天创大厦4层</li>-->
 					</ul>
 					<a href="#" class="text-info" onclick="dispalyMoreAddr(this)">更多地址↓&nbsp;&nbsp;</a>
 					<a href="javascript:void(0)" id="addAddr" class="text-success" data-toggle="modal" data-target="#myModal">添加新地址</a>
@@ -246,7 +250,6 @@
 					<table class="table table-hover table-striped" style="vertical-align:middle;">
 						<thead>
 						<tr class="text-success success">
-							<th><input type="checkbox" id="selectAll" onclick="selectAll(this)"></th>
 							<th id="sequence">序号</th>
 							<th>图片</th>
 							<th>书名</th>
