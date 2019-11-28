@@ -138,7 +138,6 @@
 					<ul class="list-group" id="address">
 						<li class="list-group-item" th:if="${not #lists.isEmpty(addressList)}" th:each="address:${addressList}">
 							<input type="radio" name="addr" th:value="${address.id}" th:text="${address.province} + ${address.city} + ${address.area} + ${address.detailAddress}" />
-							江苏省苏州市金阊区烽火路81号 天创大厦4层
 						</li>
 						<li class="list-group-item" th:if="${#lists.isEmpty(addressList)}" th:text="${'暂无地址信息!'}"><input type="radio" name="addr">&nbsp;江苏省苏州市金阊区烽火路82号 天创大厦1层</li>
 <!--						<li class="list-group-item"><input type="radio" name="addr">&nbsp;江苏省苏州市金阊区烽火路82号 天创大厦1层</li>-->
@@ -167,36 +166,36 @@
 							</div>
 							<div class="modal-body">
 							<!--登录的form表单-->
-							<form action="" class="form-horizontal" role="form">
+							<form action="" id="addressForm" class="form-horizontal" role="form">
 								<div class="form-group">
 									<label class="col-md-2 control-label" style="margin-right: 2.9%;">所在地区:</label>
 										
 									<div data-toggle="distpicker">
 										<div class="form-group col-sm-12 col-md-3">
-										  <label class="sr-only" for="province1">Province</label>
-										  <select class="form-control" id="province1"></select>
+										  <label class="sr-only" for="province1" >Province</label>
+										  <select class="form-control" id="province1" name="province"></select>
 										</div>
 										<div class="form-group col-sm-12 col-md-3">
 										  <label class="sr-only" for="city1">City</label>
-										  <select class="form-control" id="city1"></select>
+										  <select class="form-control" id="city1" name="city"></select>
 										</div>
 										<div class="form-group col-sm-12 col-md-3">
 										  <label class="sr-only" for="district1">District</label>
-										  <select class="form-control" id="district1"></select>
+										  <select class="form-control" id="district1" name="area"></select>
 										</div>
 									 </div>
 								</div>
 								<div class="form-group has-feedback" style="clear:both">
 									<label for="lastname" class="col-sm-2 control-label">详细地址:</label>
 									<div class="col-sm-5">
-										<textarea class="form-control" id="deatails"></textarea>
+										<textarea class="form-control" id="deatails" name="detailAddress"></textarea>
 									</div>
 									
 								</div>
 								<div class="form-group has-feedback">
 									<label class="col-sm-2 control-label">邮政编码</label>
 									<div class="col-md-5">
-										<input type="text" class="form-control" id="lastname2" placeholder="邮政编码">
+										<input type="text" class="form-control" id="lastname2" name="emailCode" placeholder="邮政编码">
 										<span class="glyphicon glyphicon-hand-left form-control-feedback"></span>
 									</div>
 								</div>
@@ -204,7 +203,7 @@
 								<div class="form-group has-feedback">
 									<label class="col-sm-2 control-label">姓名</label>
 									<div class="col-sm-5">
-										<input type="text" class="form-control" id="username" placeholder="收货人姓名">
+										<input type="text" class="form-control" id="username" name="receiver" placeholder="收货人姓名">
 										<span class="glyphicon glyphicon-user form-control-feedback"></span>
 									</div>
 								</div>
@@ -212,7 +211,7 @@
 								<div class="form-group has-feedback">
 									<label class="col-sm-2 control-label">电话</label>
 									<div class="col-sm-5">
-										<input type="tel" class="form-control" id="tel" placeholder="合法手机格式">
+										<input type="tel" class="form-control" id="tel" name="tel" placeholder="合法手机格式">
 										<span class="glyphicon glyphicon-phone form-control-feedback"></span>
 									</div>
 								</div>
@@ -221,7 +220,7 @@
 								    <div class="col-sm-offset-2 col-sm-10">
 								      <div class="checkbox">
 								        <label>
-								          <input type="checkbox" id="setDefaultAddr"><span class="text-success">设置默认地址</span>
+								          <input type="checkbox" id="setDefaultAddr" name="isDefault"><span class="text-success">设置默认地址</span>
 								        </label>
 								      </div>
 								    </div>
@@ -229,7 +228,7 @@
 
 								<div class="modal-footer">
 									<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-									<input type="submit" class="btn btn-primary" value="提交地址">
+									<input type="button" class="btn btn-primary" value="提交地址" th:onclick="saveAddress()">
 								</div>
 							</form>
 						<!--form结束-->
@@ -245,7 +244,7 @@
 					</li>
 				</ol>
 
-				<!--购物车表格 begin-->
+				<!--我的提交订单 begin-->
 				<div class="table-responsive" id="imgDiv">
 					<table class="table table-hover table-striped" style="vertical-align:middle;">
 						<thead>
@@ -537,14 +536,33 @@
 				new WOW().init();
 			};
 		</script>
-		<<script th:inline="javascript">
+		<script th:inline="javascript">
 			var contextPath = [[${#request.getContextPath()}]];
 		</script>
 		<script th:src="@{/js/userLoginReg.js}"></script>
 		<script type="text/javascript">
+			//提交订单跳转的页面
 			function commitOrder() {
 				window.location.href = contextPath + "/order/commitOrder";
 			}
+			
+			//新增收货地址
+			function saveAddress() {
+				var addressData = $("#addressForm").serialize();
+				$.ajax({
+					url:contextPath + "/address/save",
+					data:addressData,
+					method:"post",
+					success:function (data) {
+						if(data == "success"){
+							window.location.reload();
+						}
+					}
+
+				})
+			}
+			
+			
 		</script>
 	
 	</body>
