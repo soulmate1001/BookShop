@@ -1,5 +1,6 @@
 package org.som.bookshop.entity;
 
+import com.baomidou.mybatisplus.extension.activerecord.Model;
 import lombok.Data;
 
 /**
@@ -8,7 +9,7 @@ import lombok.Data;
  * @description
  */
 @Data
-public class CartVo {
+public class CartVo extends Model<CartVo> {
     private Integer id;
     private Integer userId;
     private Integer bookId;

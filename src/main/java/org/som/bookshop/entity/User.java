@@ -13,7 +13,7 @@ import lombok.Data;
  */
 @Data
 @TableName(value = "bs_user")
-public class User{
+public class User extends Model<User>{
     @TableId(type = IdType.AUTO)
     private Integer id;
     private String username;

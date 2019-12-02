@@ -1,5 +1,6 @@
 package org.som.bookshop.entity;
 
+import com.baomidou.mybatisplus.extension.activerecord.Model;
 import lombok.Data;
 
 /**
@@ -8,7 +9,7 @@ import lombok.Data;
  * @description:用户购物车信息VO类
  */
 @Data
-public class UserCartVo {
+public class UserCartVo extends Model<UserCartVo> {
 
     //商品的数量
     private Integer num;
