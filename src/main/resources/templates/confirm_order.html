@@ -543,7 +543,14 @@
 		<script type="text/javascript">
 			//提交订单跳转的页面
 			function commitOrder() {
-				window.location.href = contextPath + "/order/commitOrder";
+				var val = $("input:radio[name='addr']:checked").val();
+				if(null == val){
+					alert("请选择地址!");
+					return;
+				}else {
+					window.location.href = contextPath + "/order/commitOrder?addrId=" + val;
+				}
+
 			}
 			
 			//新增收货地址

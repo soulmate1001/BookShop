@@ -22,6 +22,12 @@ public class AddressController {
     @Autowired
     private AddressService addressService;
 
+    /**
+     * 添加地址功能
+     * @param address
+     * @param session
+     * @return
+     */
     @ResponseBody
     @RequestMapping("save")
     public String save(Address address , HttpSession session){
@@ -30,5 +36,9 @@ public class AddressController {
         addressService.save(address);
         return "success";
     }
+
+    /**
+     *
+     */
 
 }
