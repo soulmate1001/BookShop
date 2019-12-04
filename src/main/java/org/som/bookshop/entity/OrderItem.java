@@ -21,6 +21,18 @@ public class OrderItem extends Model<OrderItem> {
     private Integer bookId;
     private Integer count;
 
+    //图书信息
+    @TableField(exist = false)
+    private Book book;
+
+    public Book getBook() {
+        return book;
+    }
+
+    public void setBook(Book book) {
+        this.book = book;
+    }
+
     public Integer getId() {
         return id;
     }

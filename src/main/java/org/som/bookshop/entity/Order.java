@@ -1,12 +1,14 @@
 package org.som.bookshop.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import lombok.Data;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author : soulmate
@@ -24,6 +26,40 @@ public class Order extends Model<Order> {
     private Integer userId;
     private Integer addressId;
     private String orderStatus;
+
+    //用户信息
+    @TableField(exist = false)
+    private User user;
+    //地址信息
+    @TableField(exist = false)
+    private Address address;
+    //订单明细
+    @TableField(exist = false)
+    private List<OrderItem> orderItems;
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+    }
+
+    public List<OrderItem> getOrderItems() {
+        return orderItems;
+    }
+
+    public void setOrderItems(List<OrderItem> orderItems) {
+        this.orderItems = orderItems;
+    }
 
     public Integer getId() {
         return id;
