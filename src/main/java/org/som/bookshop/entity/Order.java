@@ -36,6 +36,17 @@ public class Order extends Model<Order> {
     //订单明细
     @TableField(exist = false)
     private List<OrderItem> orderItems;
+    //订单总金额
+    @TableField(exist = false)
+    private double totalPrice;
+
+    public double getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(double totalPrice) {
+        this.totalPrice = totalPrice;
+    }
 
     public User getUser() {
         return user;

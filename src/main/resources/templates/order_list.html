@@ -153,22 +153,22 @@
 				    	</div>
 				    </caption>
 				    <thead>
-				    	<tr id="collapseThree" th:id=" 'collapseDetail' + ${item.index}" class="panel-collapse collapse"> <!--collapse-->
+				    	<tr id="collapseThree" th:id="'collapseDetail' + ${item.index}" class="panel-collapse collapse"> <!--collapse-->
 					      	<td colspan="9">
 								<div class="panel-body">
 									<!--tab选项卡 begin-->
 									<ul id="myTab" class="nav nav-tabs">
 										<li class="active">
-											<a href="#home" data-toggle="tab">
+											<a href="#home" th:href="'#home' + ${item.index}" data-toggle="tab">
 												联系人信息
 											</a>
 										</li>
 										<li>
-											<a href="#ios" data-toggle="tab">订单信息</a>
+											<a href="#ios" th:href="'#ios' + ${item.index}" data-toggle="tab">订单信息</a>
 										</li>
 									</ul>
 									<div id="myTabContent" class="tab-content">
-										<div class="tab-pane fade in active" id="home">
+										<div class="tab-pane fade in active" id="home" th:id="'home' + ${item.index}">
 											<div class="row">
 												<div>
 													<ul class="nav navbar-collapse" style="line-height:3;">
@@ -180,13 +180,13 @@
 											</div>
 											</p>
 										</div>
-										<div class="tab-pane fade" id="ios">
+										<div class="tab-pane fade" id="ios" th:id="'ios' + ${item.index}">
 											<div class="row">
 												<div>
 													<ul class="nav navbar-collapse" style="line-height: 3;">
 														<li class="text-info"><span class="text-success">订单编号:</span><span class="text-info"  th:text="${order.orderNum}">1527600039447022</span></li>
 														<li class="text-info"><span class="text-success">交易时间:</span> <span th:text="${#calendars.format(order.createDate,'dd/MM/yyyy HH:mm:ss')}">01/04/2017 12:52 PM</span></li>
-														<li class="text-info"><span class="text-success">订单总金额:</span>520.0元</li>
+														<li class="text-info"><span class="text-success">订单总金额:</span><span th:text="${order.getTotalPrice() + '元'}">520.0元</span></li>
 													</ul>
 												</div>
 											</div>

@@ -74,6 +74,7 @@
         AND bo.address_id = ba.id
         AND bo.id = boi.order_id
         AND boi.book_id = bb.id
-        AND bo.user_id = #{id};
+        AND bo.user_id = #{id}
+        ORDER BY bo.id DESC;
     </select>
 </mapper>

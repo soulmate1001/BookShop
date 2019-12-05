@@ -6,6 +6,7 @@ import org.som.bookshop.entity.Order;
 import org.som.bookshop.entity.OrderItem;
 import org.som.bookshop.entity.User;
 import org.som.bookshop.mapper.OrderMapper;
+import org.som.bookshop.orderUtils.OrderUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -44,7 +45,8 @@ public class OrderService extends ServiceImpl<OrderMapper, Order> {
         order.setAddressId(addrId);
         order.setUserId(user.getId());
         order.setCreateDate(new Date());
-        order.setOrderNum(UUID.randomUUID().toString());
+//        order.setOrderNum(UUID.randomUUID().toString());
+        order.setOrderNum(OrderUtil.createOrderNum());  //自定义生成订单编号
         order.setOrderStatus("1");
         orderMapper.insert(order);
 
@@ -70,6 +72,16 @@ public class OrderService extends ServiceImpl<OrderMapper, Order> {
      * 查询用户详细订单
      */
     public List<Order> findUserOrder(Integer userId){
-        return orderMapper.findOrderAndOrderDetailListByUser(userId);
+        List<Order> list = orderMapper.findOrderAndOrderDetailListByUser(userId);
+        for (Order order:list) {
+            List<OrderItem> orderItems = order.getOrderItems();
+            double price = 0.0;
+            for (OrderItem orderItem:orderItems) {
+                price += orderItem.getCount() * orderItem.getBook().getNewPrice();
+            }
+            order.setTotalPrice(price);
+        }
+        
+        return list;
     }
 }

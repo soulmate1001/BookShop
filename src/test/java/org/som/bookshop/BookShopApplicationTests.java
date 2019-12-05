@@ -3,9 +3,11 @@ package org.som.bookshop;
 import org.junit.jupiter.api.Test;
 import org.som.bookshop.mapper.CartMapper;
 import org.som.bookshop.mapper.OrderMapper;
+import org.som.bookshop.orderUtils.OrderUtil;
 import org.som.bookshop.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+
 
 @SpringBootTest
 class BookShopApplicationTests {
@@ -33,6 +35,13 @@ class BookShopApplicationTests {
 	@Test
 	public void findOrderList(){
 		orderMapper.findOrderAndOrderDetailListByUser(2);
+	}
+
+	//测试订单编号生成器
+	@Test
+	public void createOrderNum(){
+
+		System.out.println(OrderUtil.createOrderNum());
 	}
 
 }
