@@ -65,4 +65,11 @@ public class OrderService extends ServiceImpl<OrderMapper, Order> {
         cartService.removeByIds(cartIds);
         return "success";
     }
+
+    /**
+     * 查询用户详细订单
+     */
+    public List<Order> findUserOrder(Integer userId){
+        return orderMapper.findOrderAndOrderDetailListByUser(userId);
+    }
 }

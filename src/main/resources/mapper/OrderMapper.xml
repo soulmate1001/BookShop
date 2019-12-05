@@ -15,12 +15,33 @@
 
         <!--用户信息-->
         <association property="user" javaType="org.som.bookshop.entity.User">
-            <id column="user_id" property="userId"></id>
+            <id column="user_id" property="id"></id>
             <result column="username" property="username"></result>
+            <result column="phone" property="phone"></result>
         </association>
         <!--地址信息-->
+        <association property="address" javaType="org.som.bookshop.entity.Address">
+            <id column="address_id" property="id"></id>
+            <result column="province" property="province"></result>
+            <result column="city" property="city"></result>
+            <result column="area" property="area"></result>
+            <result column="detail_address" property="detailAddress"></result>
+        </association>
         <!--订单明细-->
-        <!--Book信息-->
+        <collection property="orderItems" ofType="org.som.bookshop.entity.OrderItem">
+            <id column="order_item_id"></id>
+            <result column="book_id" property="bookId"></result>
+            <result column="order_id" property="orderId"></result>
+            <result column="count" property="count"></result>
+            <!--Book信息-->
+            <association property="book" javaType="org.som.bookshop.entity.Book">
+                <id column="book_id" property="id"></id>
+                <result column="name" property="name"></result>
+                <result column="img_url" property="imgUrl"></result>
+                <result column="new_price" property="newPrice"></result>
+            </association>
+        </collection>
+
     </resultMap>
 
     <select id="findOrderAndOrderDetailListByUser" resultMap="orderAndOrderDetailResultMap" >
@@ -32,11 +53,11 @@
             ba.city,
             ba.area,
             ba.detail_address,
-            boi.id,
+            boi.id order_item_id,
             boi.book_id,
             boi.order_id,
             boi.count,
-            bb.id,
+            bb.id book_id,
             bb.img_url,
             bb.name,
             bb.new_price

@@ -2,6 +2,7 @@ package org.som.bookshop;
 
 import org.junit.jupiter.api.Test;
 import org.som.bookshop.mapper.CartMapper;
+import org.som.bookshop.mapper.OrderMapper;
 import org.som.bookshop.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -12,8 +13,11 @@ class BookShopApplicationTests {
 	private BookService bookService;
 	@Autowired
 	private CartMapper cartMapper;
+	@Autowired
+	private OrderMapper orderMapper;
 
 
+	//测试图书查询
 	@Test
 	void findBookList() {
 		bookService.list().forEach(System.out::println);
@@ -23,6 +27,12 @@ class BookShopApplicationTests {
 	@Test
 	public void findCartList(){
 		cartMapper.findCartListByUserId(2).forEach(System.out::println);
+	}
+
+	//测试图书订单详情列表
+	@Test
+	public void findOrderList(){
+		orderMapper.findOrderAndOrderDetailListByUser(2);
 	}
 
 }

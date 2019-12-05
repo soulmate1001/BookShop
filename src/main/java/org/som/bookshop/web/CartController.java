@@ -56,17 +56,14 @@ public class CartController {
     public String list(HttpSession session, Model model){
         //获取用户信息,提取用户的id
         User user = (User)session.getAttribute("user");
-        if(null != user ){
-            List<CartVo> cartVos = cartService.findCartByUser(user.getId());
+        List<CartVo> cartVos = cartService.findCartByUser(user.getId());
 
-            //将用户的信息放到session中
-            UserCartVo userCartVo = cartService.wrapperCart(cartVos);
-            session.setAttribute("userCartInfo",userCartVo);
+        //将用户的信息放到session中
+        UserCartVo userCartVo = cartService.wrapperCart(cartVos);
+        session.setAttribute("userCartInfo",userCartVo);
 
-            model.addAttribute("cartList",cartVos);
-            return "cart";
-        }
-        return "index";
+        model.addAttribute("cartList",cartVos);
+        return "cart";
 
     }
 

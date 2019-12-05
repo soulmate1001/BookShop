@@ -3,6 +3,7 @@ package org.som.bookshop.web;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.som.bookshop.entity.Address;
 import org.som.bookshop.entity.CartVo;
+import org.som.bookshop.entity.Order;
 import org.som.bookshop.entity.User;
 import org.som.bookshop.service.AddressService;
 import org.som.bookshop.service.CartService;
@@ -68,5 +69,19 @@ public class OrderController {
             return "redirect:/book/index";
         }
     }
+
+    /**
+     * 显示用户订单列表
+     */
+    @RequestMapping("list")
+    public String list(HttpSession session,Model model){
+        User user = (User)session.getAttribute("user");
+        List<Order> orders = orderService.findUserOrder(user.getId());
+        model.addAttribute("orders",orders);
+        return "order_list";
+
+    }
+
+
 
 }
