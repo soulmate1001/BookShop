@@ -1,7 +1,5 @@
 package org.som.bookshop.orderUtils;
 
-import org.omg.CORBA.StringHolder;
-
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -18,13 +16,13 @@ public class OrderUtil {
      * 生成订单编号
      */
     public static synchronized String createOrderNum(){
-        String str = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
+        String str = new SimpleDateFormat("yyyyMMddHHmmssSSS").format(new Date());
         if(date == null || !date.equals(str)){
             date = str;
             orderNum = 01;
         }
         orderNum ++;
-        long orderNo = Long.parseLong(date) * 10000;
+        long orderNo = Long.parseLong(date) * 100;
         orderNo += orderNum;
         return String.valueOf(orderNo);
     }
